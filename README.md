@@ -1,6 +1,8 @@
 ## YRDropdownView
 
-YRDropdownView is a view library for displaying stylish alerts, warnings, and errors. Based on Tweetbot's implementation, [MKInfoPanel](https://github.com/MugunthKumar/MKInfoPanelDemo) by Muguneth Kumar, [MBProgressHUD](https://github.com/jdg/MBProgressHUD) by Matej Bukovinski and [DSActivityView](https://github.com/joycodes/DSActivityView) by David Sinclair, among other influences. Its API has been hashed to make the code easily implemented and very versatile.
+![Sample](https://github.com/onemightyroar/YRDropdownView/raw/gh-pages/screenshot.png "Sample")
+
+YRDropdownView is a view library for displaying stylish alerts, warnings, and errors. Based on Tweetbot's implementation, [MKInfoPanel](https://github.com/MugunthKumar/MKInfoPanelDemo) by Muguneth Kumar, [MBProgressHUD](https://github.com/jdg/MBProgressHUD) by Matej Bukovinski and [DSActivityView](https://github.com/joycodes/DSActivityView) by David Sinclair, among other influences. Its API has been hashed out to make the code easily implemented and very versatile.
 
 ## Installation
 
