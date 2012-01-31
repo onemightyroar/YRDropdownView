@@ -1,15 +1,15 @@
-# YRDropdownView
+## YRDropdownView
 
 YRDropdownView is a view library for displaying stylish alerts, warnings, and errors. Based on Tweetbot's implementation, [MKInfoPanel](https://github.com/MugunthKumar/MKInfoPanelDemo) by Muguneth Kumar, [MBProgressHUD](https://github.com/jdg/MBProgressHUD) by Matej Bukovinski and [DSActivityView](https://github.com/joycodes/DSActivityView) by David Sinclair, among other influences. Its API has been hashed to make the code easily implemented and very versatile.
 
-# Installation
+## Installation
 
 To use YRDropdownView:
 
 1. Copy over the `YRDropdownView` folder to your project folder. (Note: currently, the background is being drawn using a stretchable image, `bg-yellow.png`. Should you choose to supply your own background, you only need the `YRDropdownView.h\.m` files)
 2. Enjoy!
 
-# Usage
+## Usage
 
 Wherever you want to use YRDropdownView, import the header file as follows:
 
@@ -17,7 +17,7 @@ Wherever you want to use YRDropdownView, import the header file as follows:
 #import "YRDropdownView.h"
 ```
 
-## Basic
+### Basic
 You can create your dropdown by calling the singleton method:
 
 ``` objective-c
@@ -32,7 +32,7 @@ By default, calling the above method will only dismiss when clicked on. To dismi
 [YRDropdownView hideDropdownInView:self.view];
 ```
 
-## Customizing
+### Customizing
 There are many different ways to customize the alert by calling different singleton methods:
 
 ``` objective-c
@@ -93,28 +93,28 @@ There are many different ways to customize the alert by calling different single
 + (BOOL)hideDropdownInWindow:(UIWindow *)window animated:(BOOL)animated;
 ```
 
-# Notes
+## Notes
 
-## Label and Background Customization
+### Label and Background Customization
 Currently, the title and detail labels, as well as the yellow background, are static for all dropdowns. Customizing these features are a TODO for this project.
 
-## Automatic Reference Counting (ARC) support
+### Automatic Reference Counting (ARC) support
 ARC support has been neglected in part for now. Your contributions are more than welcome, however. If you want to use YRDropdownView in an ARC project, just add the [add the 
 ``` objective-c
 -fno-objc-arc
 ```
 compiler flag](http://stackoverflow.com/questions/6646052/how-can-i-disable-arc-for-a-single-file-in-a-project) to all YRDropdownView files in your project.
 
-# Contact
+## Contact
 
 - http://github.com/eliperkins
 - http://twitter.com/e_perkins1
 - eli@onemightyroar.com
 
 
-# License
+## License
 
-## MIT License
+### MIT License
 
 Copyright (c) 2012 One Mighty Roar (http://onemightyroar.com)
 
