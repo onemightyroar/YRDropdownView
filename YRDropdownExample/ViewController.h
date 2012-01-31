@@ -9,5 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController
+@property (retain, nonatomic) IBOutlet UIView *demoView;
+- (IBAction)showInView:(id)sender;
+- (IBAction)showInWindow:(id)sender;
+- (IBAction)hide:(id)sender;
 
 @end

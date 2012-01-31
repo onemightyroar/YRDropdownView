@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2D3DC25114D73F8E00898E62 /* dropdown-alert@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D3DC24F14D73F8E00898E62 /* dropdown-alert@2x.png */; };
+		2D3DC25214D73F8E00898E62 /* dropdown-alert.png in Resources */ = {isa = PBXBuildFile; fileRef = 2D3DC25014D73F8E00898E62 /* dropdown-alert.png */; };
 		2D5FCB4D14D30C2C00DA334B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D5FCB4C14D30C2C00DA334B /* UIKit.framework */; };
 		2D5FCB4F14D30C2C00DA334B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D5FCB4E14D30C2C00DA334B /* Foundation.framework */; };
 		2D5FCB5114D30C2C00DA334B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2D5FCB5014D30C2C00DA334B /* CoreGraphics.framework */; };
@@ -15,22 +17,32 @@
 		2D5FCB5D14D30C2C00DA334B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5FCB5C14D30C2C00DA334B /* AppDelegate.m */; };
 		2D5FCB6014D30C2C00DA334B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5FCB5F14D30C2C00DA334B /* ViewController.m */; };
 		2D5FCB6314D30C2C00DA334B /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D5FCB6114D30C2C00DA334B /* ViewController.xib */; };
+		2DC084D814D878460013863F /* bg-yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DC084D414D878460013863F /* bg-yellow.png */; };
+		2DC084D914D878460013863F /* bg-yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DC084D514D878460013863F /* bg-yellow@2x.png */; };
+		2DC084DA14D878460013863F /* YRDropdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC084D714D878460013863F /* YRDropdownView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2D3DC24F14D73F8E00898E62 /* dropdown-alert@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropdown-alert@2x.png"; sourceTree = "<group>"; };
+		2D3DC25014D73F8E00898E62 /* dropdown-alert.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "dropdown-alert.png"; sourceTree = "<group>"; };
 		2D5FCB4814D30C2B00DA334B /* YRDropdownExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = YRDropdownExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D5FCB4C14D30C2C00DA334B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		2D5FCB4E14D30C2C00DA334B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		2D5FCB5014D30C2C00DA334B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		2D5FCB5414D30C2C00DA334B /* YRDropdownExample-Info.plist */ = {isa = PBXFileReference; path = "YRDropdownExample-Info.plist"; sourceTree = "<group>"; };
+		2D5FCB5414D30C2C00DA334B /* YRDropdownExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "YRDropdownExample-Info.plist"; sourceTree = "<group>"; };
 		2D5FCB5614D30C2C00DA334B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		2D5FCB5814D30C2C00DA334B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		2D5FCB5A14D30C2C00DA334B /* YRDropdownExample-Prefix.pch */ = {isa = PBXFileReference; path = "YRDropdownExample-Prefix.pch"; sourceTree = "<group>"; };
-		2D5FCB5B14D30C2C00DA334B /* AppDelegate.h */ = {isa = PBXFileReference; path = AppDelegate.h; sourceTree = "<group>"; };
+		2D5FCB5A14D30C2C00DA334B /* YRDropdownExample-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "YRDropdownExample-Prefix.pch"; sourceTree = "<group>"; };
+		2D5FCB5B14D30C2C00DA334B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		2D5FCB5C14D30C2C00DA334B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		2D5FCB5E14D30C2C00DA334B /* ViewController.h */ = {isa = PBXFileReference; path = ViewController.h; sourceTree = "<group>"; };
+		2D5FCB5E14D30C2C00DA334B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		2D5FCB5F14D30C2C00DA334B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		2D5FCB6214D30C2C00DA334B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
+		2D5FCB7214D321BC00DA334B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2DC084D414D878460013863F /* bg-yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg-yellow.png"; path = "YRDropdownView/bg-yellow.png"; sourceTree = "<group>"; };
+		2DC084D514D878460013863F /* bg-yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg-yellow@2x.png"; path = "YRDropdownView/bg-yellow@2x.png"; sourceTree = "<group>"; };
+		2DC084D614D878460013863F /* YRDropdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRDropdownView.h; path = YRDropdownView/YRDropdownView.h; sourceTree = "<group>"; };
+		2DC084D714D878460013863F /* YRDropdownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YRDropdownView.m; path = YRDropdownView/YRDropdownView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +59,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2D3DC25414D7419F00898E62 /* YRDropdownView */ = {
+			isa = PBXGroup;
+			children = (
+				2DC084D414D878460013863F /* bg-yellow.png */,
+				2DC084D514D878460013863F /* bg-yellow@2x.png */,
+				2DC084D614D878460013863F /* YRDropdownView.h */,
+				2DC084D714D878460013863F /* YRDropdownView.m */,
+			);
+			name = YRDropdownView;
+			sourceTree = "<group>";
+		};
 		2D5FCB3D14D30C2B00DA334B = {
 			isa = PBXGroup;
 			children = (
@@ -67,6 +90,7 @@
 		2D5FCB4B14D30C2C00DA334B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2D5FCB7214D321BC00DA334B /* QuartzCore.framework */,
 				2D5FCB4C14D30C2C00DA334B /* UIKit.framework */,
 				2D5FCB4E14D30C2C00DA334B /* Foundation.framework */,
 				2D5FCB5014D30C2C00DA334B /* CoreGraphics.framework */,
@@ -79,10 +103,11 @@
 			children = (
 				2D5FCB5B14D30C2C00DA334B /* AppDelegate.h */,
 				2D5FCB5C14D30C2C00DA334B /* AppDelegate.m */,
-				2D5FCB5E14D30C2C00DA334B /* ViewController.h */,
-				2D5FCB5F14D30C2C00DA334B /* ViewController.m */,
-				2D5FCB6114D30C2C00DA334B /* ViewController.xib */,
+				2DC084D314D878180013863F /* View Controller */,
 				2D5FCB5314D30C2C00DA334B /* Supporting Files */,
+				2D3DC25414D7419F00898E62 /* YRDropdownView */,
+				2D3DC24F14D73F8E00898E62 /* dropdown-alert@2x.png */,
+				2D3DC25014D73F8E00898E62 /* dropdown-alert.png */,
 			);
 			path = YRDropdownExample;
 			sourceTree = "<group>";
@@ -96,6 +121,16 @@
 				2D5FCB5A14D30C2C00DA334B /* YRDropdownExample-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		2DC084D314D878180013863F /* View Controller */ = {
+			isa = PBXGroup;
+			children = (
+				2D5FCB5E14D30C2C00DA334B /* ViewController.h */,
+				2D5FCB5F14D30C2C00DA334B /* ViewController.m */,
+				2D5FCB6114D30C2C00DA334B /* ViewController.xib */,
+			);
+			name = "View Controller";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,6 +186,10 @@
 			files = (
 				2D5FCB5714D30C2C00DA334B /* InfoPlist.strings in Resources */,
 				2D5FCB6314D30C2C00DA334B /* ViewController.xib in Resources */,
+				2D3DC25114D73F8E00898E62 /* dropdown-alert@2x.png in Resources */,
+				2D3DC25214D73F8E00898E62 /* dropdown-alert.png in Resources */,
+				2DC084D814D878460013863F /* bg-yellow.png in Resources */,
+				2DC084D914D878460013863F /* bg-yellow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,6 +203,7 @@
 				2D5FCB5914D30C2C00DA334B /* main.m in Sources */,
 				2D5FCB5D14D30C2C00DA334B /* AppDelegate.m in Sources */,
 				2D5FCB6014D30C2C00DA334B /* ViewController.m in Sources */,
+				2DC084DA14D878460013863F /* YRDropdownView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,6 +313,7 @@
 				2D5FCB6814D30C2C00DA334B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
