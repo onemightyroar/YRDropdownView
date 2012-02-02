@@ -132,9 +132,6 @@ There are many different ways to customize the alert by calling different single
 
 ## Notes
 
-### Label and Background Customization
-Currently, the title and detail labels, as well as the yellow background, are static for all dropdowns. Customizing these features are a TODO for this project.
-
 ### Automatic Reference Counting (ARC) support
 ARC support has been neglected in part for now. Your contributions are more than welcome, however. If you want to use YRDropdownView in an ARC project, just add the [add the 
 ``` objective-c
