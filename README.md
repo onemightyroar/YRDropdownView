@@ -62,6 +62,23 @@ There are many different ways to customize the alert by calling different single
                                  image:(UIImage *)image
                               animated:(BOOL)animated
                              hideAfter:(float)delay;
++ (YRDropdownView *)showDropdownInView:(UIView *)view
+                                 title:(NSString *)title
+                                detail:(NSString *)detail
+                                 image:(UIImage *)image
+                       backgroundImage:(UIImage *)backgroundImage
+                              animated:(BOOL)animated
+                             hideAfter:(float)delay;
+
++ (YRDropdownView *)showDropdownInView:(UIView *)view
+                                 title:(NSString *)title
+                                detail:(NSString *)detail
+                                 image:(UIImage *)image
+                       backgroundImage:(UIImage *)backgroundImage
+                       titleLabelColor:(UIColor *)titleLabelColor
+                      detailLabelColor:(UIColor *)detailLabelColor
+                              animated:(BOOL)animated
+                             hideAfter:(float)delay;
 
 + (BOOL)hideDropdownInView:(UIView *)view;
 + (BOOL)hideDropdownInView:(UIView *)view animated:(BOOL)animated;
@@ -88,6 +105,24 @@ There are many different ways to customize the alert by calling different single
                                    title:(NSString *)title
                                   detail:(NSString *)detail
                                    image:(UIImage *)image
+                                animated:(BOOL)animated
+                               hideAfter:(float)delay;
+
++ (YRDropdownView *)showDropdownInWindow:(UIWindow *)window 
+                                   title:(NSString *)title
+                                  detail:(NSString *)detail
+                                   image:(UIImage *)image
+                         backgroundImage:(UIImage *)backgroundImage
+                                animated:(BOOL)animated
+                               hideAfter:(float)delay;
+
++ (YRDropdownView *)showDropdownInWindow:(UIWindow *)window 
+                                   title:(NSString *)title
+                                  detail:(NSString *)detail
+                                   image:(UIImage *)image
+                         backgroundImage:(UIImage *)backgroundImage
+                         titleLabelColor:(UIColor *)titleLabelColor
+                        detailLabelColor:(UIColor *)detailLabelColor
                                 animated:(BOOL)animated
                                hideAfter:(float)delay;
 
