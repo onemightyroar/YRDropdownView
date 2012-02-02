@@ -41,6 +41,8 @@
 @synthesize accessoryImage;
 @synthesize onTouch;
 @synthesize shouldAnimate;
+@synthesize titleLabelColor;
+@synthesize detailLabelColor;
 
 //Using this prevents two alerts to ever appear on the screen at the same time
 //TODO: Queue alerts, if multiple
@@ -124,7 +126,7 @@ static YRDropdownView *currentDropdown = nil;
         self.titleText = nil;
         self.detailText = nil;
         self.minHeight = 44.0f;
-        self.backgroundImage = [UIImage imageNamed:@"bg-yellow.png"];
+//        self.backgroundImage = [UIImage imageNamed:@"bg-yellow.png"];
         self.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         
         titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
@@ -146,14 +148,15 @@ static YRDropdownView *currentDropdown = nil;
 #pragma mark - Defines
 
 #define HORIZONTAL_PADDING 15.0f
-#define VERTICAL_PADDING 19.0f
+#define VERTICAL_PADDING 15.0f
 #define IMAGE_PADDING 45.0f
-#define TITLE_FONT_SIZE 19.0f
+#define TITLE_FONT_SIZE 16.0f
 #define DETAIL_FONT_SIZE 13.0f
 #define ANIMATION_DURATION 0.3f
 
 #pragma mark - Class methods
 #pragma mark View Methods
+
 + (YRDropdownView *)showDropdownInView:(UIView *)view title:(NSString *)title
 {
     return [YRDropdownView showDropdownInView:view title:title detail:nil];
@@ -175,11 +178,49 @@ static YRDropdownView *currentDropdown = nil;
 }
 
 + (YRDropdownView *)showDropdownInView:(UIView *)view 
-                             title:(NSString *)title 
-                            detail:(NSString *)detail 
-                             image:(UIImage *)image
-                          animated:(BOOL)animated
-                         hideAfter:(float)delay
+                                 title:(NSString *)title 
+                                detail:(NSString *)detail 
+                                 image:(UIImage *)image
+                              animated:(BOOL)animated
+                             hideAfter:(float)delay
+{
+    return [YRDropdownView showDropdownInView:view 
+                                        title:title 
+                                       detail:detail 
+                                        image:image 
+                              backgroundImage:[UIImage imageNamed:@"bg-yellow.png"] 
+                                     animated:animated 
+                                    hideAfter:delay]; 
+}
+
++ (YRDropdownView *)showDropdownInView:(UIView *)view 
+                                 title:(NSString *)title 
+                                detail:(NSString *)detail 
+                                 image:(UIImage *)image
+                       backgroundImage:(UIImage *)backgroundImage
+                              animated:(BOOL)animated
+                             hideAfter:(float)delay
+{
+    return [YRDropdownView showDropdownInView:view 
+                                        title:title 
+                                       detail:detail
+                                        image:image 
+                              backgroundImage:backgroundImage
+                              titleLabelColor:[UIColor colorWithWhite:0.225 alpha:1.0]
+                             detailLabelColor:[UIColor colorWithWhite:0.225 alpha:1.0]
+                                     animated:animated 
+                                    hideAfter:delay];
+}
+
++ (YRDropdownView *)showDropdownInView:(UIView *)view 
+                                 title:(NSString *)title 
+                                detail:(NSString *)detail 
+                                 image:(UIImage *)image
+                       backgroundImage:(UIImage *)backgroundImage
+                       titleLabelColor:(UIColor *)titleLabelColor 
+                      detailLabelColor:(UIColor *)detailLabelColor 
+                              animated:(BOOL)animated
+                             hideAfter:(float)delay
 {
     if (currentDropdown) {
         [currentDropdown hideUsingAnimation:[NSNumber numberWithBool:animated]];
@@ -195,6 +236,20 @@ static YRDropdownView *currentDropdown = nil;
 
     if (image) {
         dropdown.accessoryImage = image;
+    }
+    
+    if (backgroundImage) {
+        dropdown.backgroundImage = backgroundImage;
+    } else {
+        dropdown.backgroundImage = [UIImage imageNamed:@"bg-yellow.png"];
+    }
+    
+    if (titleLabelColor) {
+        dropdown.titleLabelColor = titleLabelColor;
+    }
+    
+    if (detailLabelColor) {
+        dropdown.detailLabelColor = detailLabelColor;
     }
     
     dropdown.shouldAnimate = animated;
@@ -230,13 +285,40 @@ static YRDropdownView *currentDropdown = nil;
     return [YRDropdownView showDropdownInWindow:window title:title detail:detail image:image animated:animated hideAfter:0.0];
 }
 
-+ (YRDropdownView *)showDropdownInWindow:(UIWindow *)window 
-                               title:(NSString *)title 
-                              detail:(NSString *)detail 
-                               image:(UIImage *)image
-                            animated:(BOOL)animated
-                           hideAfter:(float)delay
++ (YRDropdownView *)showDropdownInWindow:(UIWindow *)window title:(NSString *)title detail:(NSString *)detail image:(UIImage *)image animated:(BOOL)animated hideAfter:(float)delay
 {
+    return [YRDropdownView showDropdownInWindow:window title:title detail:detail image:image backgroundImage:[UIImage imageNamed:@"bg-yellow.png"] animated:animated hideAfter:delay];
+}
+
++ (YRDropdownView *)showDropdownInWindow:(UIWindow *)window 
+                                   title:(NSString *)title 
+                                  detail:(NSString *)detail 
+                                   image:(UIImage *)image
+                         backgroundImage:(UIImage *)backgroundImage
+                                animated:(BOOL)animated
+                               hideAfter:(float)delay
+{
+    return [YRDropdownView showDropdownInWindow:window 
+                                          title:title
+                                         detail:detail 
+                                          image:image
+                                backgroundImage:backgroundImage                        
+                                titleLabelColor:[UIColor colorWithWhite:0.225 alpha:1.0]
+                               detailLabelColor:[UIColor colorWithWhite:0.225 alpha:1.0]
+                                       animated:animated
+                                      hideAfter:delay];
+}
+
++ (YRDropdownView *)showDropdownInWindow:(UIWindow *)window 
+                                   title:(NSString *)title
+                                  detail:(NSString *)detail
+                                   image:(UIImage *)image
+                         backgroundImage:(UIImage *)backgroundImage
+                         titleLabelColor:(UIColor *)titleLabelColor
+                        detailLabelColor:(UIColor *)detailLabelColor
+                                animated:(BOOL)animated
+                               hideAfter:(float)delay
+{   
     if (currentDropdown) {
         [currentDropdown hideUsingAnimation:[NSNumber numberWithBool:animated]];
     }
@@ -252,22 +334,36 @@ static YRDropdownView *currentDropdown = nil;
     if (image) {
         dropdown.accessoryImage = image;
     }
-        
+    if (backgroundImage) {
+        dropdown.backgroundImage = backgroundImage;
+    } else {
+        dropdown.backgroundImage = [UIImage imageNamed:@"bg-yellow.png"];
+    }
+    
+    if (titleLabelColor) {
+        dropdown.titleLabelColor = titleLabelColor;
+    }
+    
+    if (detailLabelColor) {
+        dropdown.detailLabelColor = detailLabelColor;
+    }
+    
+    dropdown.shouldAnimate = animated;
+    
     if (![UIApplication sharedApplication].statusBarHidden) {
         CGRect frame = dropdown.frame;
         frame.origin.y += [UIApplication sharedApplication].statusBarFrame.size.height;
         dropdown.frame = frame;
     }
-
+    
     [window addSubview:dropdown];
     [dropdown show:animated];
     if (delay != 0.0) {
         [dropdown performSelector:@selector(hideUsingAnimation:) withObject:[NSNumber numberWithBool:animated] afterDelay:delay+ANIMATION_DURATION];
     }
-
+    
     return dropdown;
 }
-
 + (void)removeView 
 {
     if (!currentDropdown) {
@@ -406,11 +502,24 @@ static YRDropdownView *currentDropdown = nil;
     // Set label properties
     titleLabel.font = [UIFont boldSystemFontOfSize:TITLE_FONT_SIZE];
     titleLabel.adjustsFontSizeToFitWidth = NO;
-    titleLabel.opaque = NO;
+    titleLabel.opaque = YES;
     titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.textColor = [UIColor colorWithWhite:0.225 alpha:1.0];
-    titleLabel.shadowOffset = CGSizeMake(0, 1/[[UIScreen mainScreen] scale]);
-    titleLabel.shadowColor = [UIColor colorWithWhite:1 alpha:0.25];
+    titleLabel.textColor = titleLabelColor;
+
+    CGColorRef color = [titleLabel.textColor CGColor];
+    const CGFloat *components = CGColorGetComponents(color);
+    float total = 0.0;
+    for (int i = 0; i < (int)CGColorGetNumberOfComponents(color)-1; i++){
+        total += components[i];
+    }
+    if ((total/((int)CGColorGetNumberOfComponents(color)-1)) > 0.5){
+        titleLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.25];
+        titleLabel.shadowOffset = CGSizeMake(0, -1/[[UIScreen mainScreen] scale]);
+    }else {
+        titleLabel.shadowColor = [UIColor colorWithWhite:1 alpha:0.35];
+        titleLabel.shadowOffset = CGSizeMake(0, 1/[[UIScreen mainScreen] scale]);
+    }
+
     titleLabel.text = self.titleText;
     [titleLabel sizeToFitFixedWidth:self.bounds.size.width - (2 * HORIZONTAL_PADDING)];
     
@@ -425,16 +534,29 @@ static YRDropdownView *currentDropdown = nil;
         detailLabel.font = [UIFont systemFontOfSize:DETAIL_FONT_SIZE];
         detailLabel.numberOfLines = 0;
         detailLabel.adjustsFontSizeToFitWidth = NO;
-        detailLabel.opaque = NO;
+        detailLabel.opaque = YES;
         detailLabel.backgroundColor = [UIColor clearColor];
-        detailLabel.textColor = [UIColor colorWithWhite:0.225 alpha:1.0];
-        detailLabel.shadowOffset = CGSizeMake(0, 1/[[UIScreen mainScreen] scale]);
-        detailLabel.shadowColor = [UIColor colorWithWhite:1 alpha:0.25];
+        detailLabel.textColor = detailLabelColor;
+
+        CGColorRef color = [detailLabel.textColor CGColor];
+        const CGFloat *components = CGColorGetComponents(color);
+        float total = 0.0;
+        for (int i = 0; i < (int)CGColorGetNumberOfComponents(color)-1; i++){
+            total += components[i];
+        }
+        if ((total/((int)CGColorGetNumberOfComponents(color)-1)) > 0.5){
+            detailLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.25];
+            detailLabel.shadowOffset = CGSizeMake(0, -1/[[UIScreen mainScreen] scale]);
+        }else {
+            detailLabel.shadowColor = [UIColor colorWithWhite:1 alpha:0.35];
+            detailLabel.shadowOffset = CGSizeMake(0, 1/[[UIScreen mainScreen] scale]);
+        }
+
         detailLabel.text = self.detailText;
         [detailLabel sizeToFitFixedWidth:self.bounds.size.width - (2 * HORIZONTAL_PADDING)];
         
         detailLabel.frame = CGRectMake(self.bounds.origin.x + HORIZONTAL_PADDING, 
-                                       titleLabel.frame.origin.y + titleLabel.frame.size.height + 2, 
+                                       titleLabel.frame.origin.y + titleLabel.frame.size.height, 
                                        self.bounds.size.width - (2 * HORIZONTAL_PADDING), 
                                        detailLabel.frame.size.height);
 
@@ -474,10 +596,16 @@ static YRDropdownView *currentDropdown = nil;
     if (self.detailText) {
         dropdownHeight = MAX(CGRectGetMaxY(self.bounds), CGRectGetMaxY(detailLabel.frame));
         dropdownHeight += VERTICAL_PADDING;
-    } 
+    } else {
+        dropdownHeight = MAX(CGRectGetMaxY(self.bounds), CGRectGetMaxY(titleLabel.frame));
+        if (dropdownHeight != 44) {
+            dropdownHeight += VERTICAL_PADDING;
+        }
+    }
             
     [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, dropdownHeight)];
     
+    [backgroundImageView setImage:[backgroundImage stretchableImageWithLeftCapWidth:1 topCapHeight:backgroundImage.size.height/2]];
     [backgroundImageView setFrame:self.bounds];
         
 }
