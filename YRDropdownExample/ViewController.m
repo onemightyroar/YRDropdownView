@@ -35,12 +35,7 @@
 }
 
 - (IBAction)showInView:(id)sender {
-    [YRDropdownView showDropdownInView:demoView 
-                             title:@"Warning" 
-                            detail:@"Me too! I want to try a really long detail message to see how it handles the line breaks and what not. Here's to hoping it works right the first time!" 
-                             image:[UIImage imageNamed:@"dropdown-alert"]
-                          animated:YES
-                         hideAfter:3];
+    [YRDropdownView showDropdownInView:self.view title:@"background ui colour test" detail:@"testing testing 123" image:nil animated:YES hideAfter:0.0 setUIcolor:[UIColor colorWithRed:1 green:0 blue:0 alpha:1]];
 }
 
 - (IBAction)showInWindow:(id)sender {

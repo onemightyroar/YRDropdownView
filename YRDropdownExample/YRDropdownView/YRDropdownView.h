@@ -67,6 +67,14 @@
                              hideAfter:(float)delay
                          setBackground:(NSString*)colour; 
 
++ (YRDropdownView *)showDropdownInView:(UIView *)view 
+                                 title:(NSString *)title 
+                                detail:(NSString *)detail 
+                                 image:(UIImage *)image
+                              animated:(BOOL)animated
+                             hideAfter:(float)delay
+                            setUIcolor:(UIColor*)colour;
+
 + (BOOL)hideDropdownInView:(UIView *)view;
 + (BOOL)hideDropdownInView:(UIView *)view animated:(BOOL)animated;
 
@@ -105,6 +113,7 @@
 - (void)hide:(BOOL)animated;
 #pragma mark colour init
 -(id) initWithFrameOfColor:(CGRect)frame:(NSString*)color;
+-(id) initWithFrameOfUIColor:(CGRect)frame:(UIColor*)color;
 
 
 @end

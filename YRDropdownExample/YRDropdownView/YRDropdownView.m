@@ -170,6 +170,34 @@ static YRDropdownView *currentDropdown = nil;
     }
     return self;
 }
+- (id)initWithFrameOfUIColor:(CGRect)frame: (UIColor*)color
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        // Initialization code
+        self.titleText = nil;
+        self.detailText = nil;
+        self.minHeight = 44.0f;
+
+        self.backgroundColor = color;
+        self.backgroundImage = [UIImage imageNamed:@"bg-glossLayer"];
+        self.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
+        
+        titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
+        detailLabel = [[UILabel alloc] initWithFrame:self.bounds];
+        backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        backgroundImageView.image = [self.backgroundImage stretchableImageWithLeftCapWidth:1 topCapHeight:self.backgroundImage.size.height/2];
+        backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        
+        accessoryImageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        [self addSubview:backgroundImageView];
+        
+        self.opaque = YES;
+        
+        onTouch = @selector(hide:);
+    }
+    return self;
+}
 
 
 #pragma mark - Defines
@@ -244,6 +272,44 @@ static YRDropdownView *currentDropdown = nil;
         dropdown.backgroundImage = [UIImage imageNamed:colourBackgroundToLoad];
     }
     
+    return dropdown;
+}
++ (YRDropdownView *)showDropdownInView:(UIView *)view 
+                                 title:(NSString *)title 
+                                detail:(NSString *)detail 
+                                 image:(UIImage *)image
+                              animated:(BOOL)animated
+                             hideAfter:(float)delay
+                         setUIcolor:(UIColor*)colour
+{
+    if (currentDropdown) {
+        [currentDropdown hideUsingAnimation:[NSNumber numberWithBool:animated]];
+    }
+    if (!colour){
+        colour = [UIColor grayColor];
+    }
+    
+    YRDropdownView *dropdown = [[YRDropdownView alloc] initWithFrameOfUIColor:CGRectMake(0, 0, view.bounds.size.width, 44):(UIColor*) colour];
+    
+    currentDropdown = dropdown;
+    dropdown.titleText = title;
+    
+    if (detail) {
+        dropdown.detailText = detail;
+    } 
+    
+    if (image) {
+        dropdown.accessoryImage = image;
+    }
+    
+    dropdown.shouldAnimate = animated;
+    
+    [view addSubview:dropdown];
+    [dropdown show:animated];
+    if (delay != 0.0) {
+        [dropdown performSelector:@selector(hideUsingAnimation:) withObject:[NSNumber numberWithBool:animated] afterDelay:delay+ANIMATION_DURATION];
+    }
+        
     return dropdown;
 }
 
