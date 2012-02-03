@@ -44,7 +44,7 @@
 }
 
 - (IBAction)showInWindow:(id)sender {
-    [YRDropdownView showDropdownInWindow:self.view.window 
+    [YRDropdownView showDropdownInView:self.view.window 
                                title:@"Warning" 
                               detail:nil
                                image:nil
