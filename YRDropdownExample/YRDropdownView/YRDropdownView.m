@@ -233,7 +233,7 @@ static YRDropdownView *currentDropdown = nil;
 
 + (YRDropdownView *)showDropdownInView:(UIView *)view title:(NSString *)title detail:(NSString *)detail image:(UIImage *)image animated:(BOOL)animated hideAfter:(float)delay
 {
-    return [YRDropdownView showDropdownInView:view title:title detail:detail image:image animated:animated hideAfter:delay setBackground:@"yellow"];
+    return [YRDropdownView showDropdownInView:view title:title detail:detail image:image animated:animated hideAfter:delay setBackgroundImage:@"yellow"];
 }
 + (YRDropdownView *)showDropdownInView:(UIView *)view 
                                  title:(NSString *)title 
@@ -241,7 +241,7 @@ static YRDropdownView *currentDropdown = nil;
                                  image:(UIImage *)image
                               animated:(BOOL)animated
                              hideAfter:(float)delay
-                         setBackground:(NSString*)colour
+                         setBackgroundImage:(NSString *)colour
 {
     if (currentDropdown) {
         [currentDropdown hideUsingAnimation:[NSNumber numberWithBool:animated]];
@@ -373,6 +373,84 @@ static YRDropdownView *currentDropdown = nil;
 
     return dropdown;
 }
++ (YRDropdownView *)showDropdownInwindow :(UIWindow *)window 
+                                 title:(NSString *)title 
+                                detail:(NSString *)detail 
+                                 image:(UIImage *)image
+                              animated:(BOOL)animated
+                             hideAfter:(float)delay
+                         setBackgroundImage:(NSString*)colour
+{
+    if (currentDropdown) {
+        [currentDropdown hideUsingAnimation:[NSNumber numberWithBool:animated]];
+    }
+    
+    YRDropdownView *dropdown = [[YRDropdownView alloc] initWithFrameOfColor:CGRectMake(0, 0, window.bounds.size.width, 44):(NSString*) colour];
+    currentDropdown = dropdown;
+    dropdown.titleText = title;
+    
+    if (detail) {
+        dropdown.detailText = detail;
+    } 
+    
+    if (image) {
+        dropdown.accessoryImage = image;
+    }
+    
+    dropdown.shouldAnimate = animated;
+    
+    [window addSubview:dropdown];
+    [dropdown show:animated];
+    if (delay != 0.0) {
+        [dropdown performSelector:@selector(hideUsingAnimation:) withObject:[NSNumber numberWithBool:animated] afterDelay:delay+ANIMATION_DURATION];
+    }
+    if (colour){
+        NSLog(@"%@",colour);
+        NSString * colourBackgroundToLoad = [NSString stringWithFormat:@"bg-%@.png",colour];
+        dropdown.backgroundImage = [UIImage imageNamed:colourBackgroundToLoad];
+    }
+    
+    return dropdown;
+}
++ (YRDropdownView *)showDropdownInWindow:(UIWindow *)window  
+                                 title:(NSString *)title 
+                                detail:(NSString *)detail 
+                                 image:(UIImage *)image
+                              animated:(BOOL)animated
+                             hideAfter:(float)delay
+                            setUIcolor:(UIColor*)colour
+{
+    if (currentDropdown) {
+        [currentDropdown hideUsingAnimation:[NSNumber numberWithBool:animated]];
+    }
+    if (!colour){
+        colour = [UIColor grayColor];
+    }
+    
+    YRDropdownView *dropdown = [[YRDropdownView alloc] initWithFrameOfUIColor:CGRectMake(0, 0, window.bounds.size.width, 44):(UIColor*) colour];
+    
+    currentDropdown = dropdown;
+    dropdown.titleText = title;
+    
+    if (detail) {
+        dropdown.detailText = detail;
+    } 
+    
+    if (image) {
+        dropdown.accessoryImage = image;
+    }
+    
+    dropdown.shouldAnimate = animated;
+    
+    [window addSubview:dropdown];
+    [dropdown show:animated];
+    if (delay != 0.0) {
+        [dropdown performSelector:@selector(hideUsingAnimation:) withObject:[NSNumber numberWithBool:animated] afterDelay:delay+ANIMATION_DURATION];
+    }
+    
+    return dropdown;
+}
+
 
 + (void)removeView 
 {

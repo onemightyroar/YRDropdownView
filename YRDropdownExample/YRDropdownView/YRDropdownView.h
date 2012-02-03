@@ -65,7 +65,7 @@
                                  image:(UIImage *)image
                               animated:(BOOL)animated
                              hideAfter:(float)delay
-                         setBackground:(NSString*)colour; 
+                    setBackgroundImage:(NSString*)colour; 
 
 + (YRDropdownView *)showDropdownInView:(UIView *)view 
                                  title:(NSString *)title 
@@ -104,6 +104,20 @@
                                    image:(UIImage *)image
                                 animated:(BOOL)animated
                                hideAfter:(float)delay;
++ (YRDropdownView *)showDropdownInwindow :(UIWindow *)window 
+                                    title:(NSString *)title 
+                                   detail:(NSString *)detail 
+                                    image:(UIImage *)image
+                                 animated:(BOOL)animated
+                                hideAfter:(float)delay
+                       setBackgroundImage:(NSString*)colour;
++ (YRDropdownView *)showDropdownInWindow:(UIWindow *)window  
+                                   title:(NSString *)title 
+                                  detail:(NSString *)detail 
+                                   image:(UIImage *)image
+                                animated:(BOOL)animated
+                               hideAfter:(float)delay
+                              setUIcolor:(UIColor*)colour;
 
 + (BOOL)hideDropdownInWindow:(UIWindow *)window;
 + (BOOL)hideDropdownInWindow:(UIWindow *)window animated:(BOOL)animated;
