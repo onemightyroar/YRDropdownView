@@ -212,7 +212,14 @@ static YRDropdownView *currentDropdown = nil;
 
 + (YRDropdownView *)showDropdownInView:(UIView *)view title:(NSString *)title detail:(NSString *)detail image:(UIImage *)image animated:(BOOL)animated hideAfter:(float)delay
 {
-    return [YRDropdownView showDropdownInView:view title:title detail:detail image:image animated:animated hideAfter:delay setBackgroundImage:@"yellow"];
+        //UIImageVersion
+  //  return [YRDropdownView showDropdownInView:view title:title detail:detail image:image animated:animated hideAfter:delay setBackgroundImage:@"yellow"];
+    
+        //UIColour version
+    UIColor * defaultColour = [UIColor yellowColor];
+    NSString * overlayString = @"glossyLayer";
+    return [YRDropdownView showDropdownInView:view title:title detail:detail image:image animated:animated hideAfter:delay setUIcolor:defaultColour setPrettylayer:overlayString];
+    
 }
 + (YRDropdownView *)showDropdownInView:(UIView *)view 
                                  title:(NSString *)title 
