@@ -323,35 +323,7 @@ static YRDropdownView *currentDropdown = nil;
                             animated:(BOOL)animated
                            hideAfter:(float)delay
 {
-    if (currentDropdown) {
-        [currentDropdown hideUsingAnimation:[NSNumber numberWithBool:animated]];
-    }
-    
-    YRDropdownView *dropdown = [[YRDropdownView alloc] initWithFrame:CGRectMake(0, 0, window.bounds.size.width, 44)];
-    currentDropdown = dropdown;
-    dropdown.titleText = title;
-    
-    if (detail) {
-        dropdown.detailText = detail;
-    }
-    
-    if (image) {
-        dropdown.accessoryImage = image;
-    }
-        
-    if (![UIApplication sharedApplication].statusBarHidden) {
-        CGRect frame = dropdown.frame;
-        frame.origin.y += [UIApplication sharedApplication].statusBarFrame.size.height;
-        dropdown.frame = frame;
-    }
-
-    [window addSubview:dropdown];
-    [dropdown show:animated];
-    if (delay != 0.0) {
-        [dropdown performSelector:@selector(hideUsingAnimation:) withObject:[NSNumber numberWithBool:animated] afterDelay:delay+ANIMATION_DURATION];
-    }
-
-    return dropdown;
+    return [YRDropdownView showDropdownInView:window title:title detail:detail image:image animated:animated hideAfter:delay setBackgroundImage:@"yellow"];
 }
 + (YRDropdownView *)showDropdownInwindow :(UIWindow *)window 
                                  title:(NSString *)title 
