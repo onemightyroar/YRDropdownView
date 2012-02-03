@@ -20,6 +20,12 @@
 		2DC084D814D878460013863F /* bg-yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DC084D414D878460013863F /* bg-yellow.png */; };
 		2DC084D914D878460013863F /* bg-yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DC084D514D878460013863F /* bg-yellow@2x.png */; };
 		2DC084DA14D878460013863F /* YRDropdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC084D714D878460013863F /* YRDropdownView.m */; };
+		68EA3D2B14DBE7C600A92486 /* bg-green@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68EA3D2714DBE7C600A92486 /* bg-green@2x.png */; };
+		68EA3D2C14DBE7C600A92486 /* bg-red.png in Resources */ = {isa = PBXBuildFile; fileRef = 68EA3D2814DBE7C600A92486 /* bg-red.png */; };
+		68EA3D2D14DBE7C600A92486 /* bg-red@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68EA3D2914DBE7C600A92486 /* bg-red@2x.png */; };
+		68EA3D2E14DBE7C600A92486 /* bg-green.png in Resources */ = {isa = PBXBuildFile; fileRef = 68EA3D2A14DBE7C600A92486 /* bg-green.png */; };
+		68EA3D3214DBEECE00A92486 /* bg-glossLayer.png in Resources */ = {isa = PBXBuildFile; fileRef = 68EA3D3014DBEECE00A92486 /* bg-glossLayer.png */; };
+		68EA3D3314DBEECE00A92486 /* bg-glossLayer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 68EA3D3114DBEECE00A92486 /* bg-glossLayer@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +49,12 @@
 		2DC084D514D878460013863F /* bg-yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg-yellow@2x.png"; path = "YRDropdownView/bg-yellow@2x.png"; sourceTree = "<group>"; };
 		2DC084D614D878460013863F /* YRDropdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRDropdownView.h; path = YRDropdownView/YRDropdownView.h; sourceTree = "<group>"; };
 		2DC084D714D878460013863F /* YRDropdownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YRDropdownView.m; path = YRDropdownView/YRDropdownView.m; sourceTree = "<group>"; };
+		68EA3D2714DBE7C600A92486 /* bg-green@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-green@2x.png"; sourceTree = "<group>"; };
+		68EA3D2814DBE7C600A92486 /* bg-red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-red.png"; sourceTree = "<group>"; };
+		68EA3D2914DBE7C600A92486 /* bg-red@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-red@2x.png"; sourceTree = "<group>"; };
+		68EA3D2A14DBE7C600A92486 /* bg-green.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg-green.png"; sourceTree = "<group>"; };
+		68EA3D3014DBEECE00A92486 /* bg-glossLayer.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg-glossLayer.png"; path = "YRDropdownView/bg-glossLayer.png"; sourceTree = "<group>"; };
+		68EA3D3114DBEECE00A92486 /* bg-glossLayer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg-glossLayer@2x.png"; path = "YRDropdownView/bg-glossLayer@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,8 +74,7 @@
 		2D3DC25414D7419F00898E62 /* YRDropdownView */ = {
 			isa = PBXGroup;
 			children = (
-				2DC084D414D878460013863F /* bg-yellow.png */,
-				2DC084D514D878460013863F /* bg-yellow@2x.png */,
+				68EA3D2F14DBE7D400A92486 /* Backgrounds */,
 				2DC084D614D878460013863F /* YRDropdownView.h */,
 				2DC084D714D878460013863F /* YRDropdownView.m */,
 			);
@@ -133,6 +144,21 @@
 			name = "View Controller";
 			sourceTree = "<group>";
 		};
+		68EA3D2F14DBE7D400A92486 /* Backgrounds */ = {
+			isa = PBXGroup;
+			children = (
+				68EA3D3014DBEECE00A92486 /* bg-glossLayer.png */,
+				68EA3D3114DBEECE00A92486 /* bg-glossLayer@2x.png */,
+				68EA3D2714DBE7C600A92486 /* bg-green@2x.png */,
+				68EA3D2814DBE7C600A92486 /* bg-red.png */,
+				68EA3D2914DBE7C600A92486 /* bg-red@2x.png */,
+				68EA3D2A14DBE7C600A92486 /* bg-green.png */,
+				2DC084D414D878460013863F /* bg-yellow.png */,
+				2DC084D514D878460013863F /* bg-yellow@2x.png */,
+			);
+			name = Backgrounds;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -190,6 +216,12 @@
 				2D3DC25214D73F8E00898E62 /* dropdown-alert.png in Resources */,
 				2DC084D814D878460013863F /* bg-yellow.png in Resources */,
 				2DC084D914D878460013863F /* bg-yellow@2x.png in Resources */,
+				68EA3D2B14DBE7C600A92486 /* bg-green@2x.png in Resources */,
+				68EA3D2C14DBE7C600A92486 /* bg-red.png in Resources */,
+				68EA3D2D14DBE7C600A92486 /* bg-red@2x.png in Resources */,
+				68EA3D2E14DBE7C600A92486 /* bg-green.png in Resources */,
+				68EA3D3214DBEECE00A92486 /* bg-glossLayer.png in Resources */,
+				68EA3D3314DBEECE00A92486 /* bg-glossLayer@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,7 +310,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YRDropdownExample/YRDropdownExample-Prefix.pch";
 				INFOPLIST_FILE = "YRDropdownExample/YRDropdownExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -289,7 +323,9 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "YRDropdownExample/YRDropdownExample-Prefix.pch";
 				INFOPLIST_FILE = "YRDropdownExample/YRDropdownExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

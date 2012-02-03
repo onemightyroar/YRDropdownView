@@ -59,6 +59,24 @@
                               animated:(BOOL)animated
                              hideAfter:(float)delay;
 
++ (YRDropdownView *)showDropdownInView:(UIView *)view
+                                 title:(NSString *)title
+                                detail:(NSString *)detail
+                                 image:(UIImage *)image
+                              animated:(BOOL)animated
+                             hideAfter:(float)delay
+                    setBackgroundImage:(NSString*)colour; 
+
++ (YRDropdownView *)showDropdownInView:(UIView *)view 
+                                 title:(NSString *)title 
+                                detail:(NSString *)detail 
+                                 image:(UIImage *)image
+                              animated:(BOOL)animated
+                             hideAfter:(float)delay
+                            setUIcolor:(UIColor*)colour
+                        setPrettylayer:(NSString*)overlayer;
+
+
 + (BOOL)hideDropdownInView:(UIView *)view;
 + (BOOL)hideDropdownInView:(UIView *)view animated:(BOOL)animated;
 
@@ -88,6 +106,21 @@
                                    image:(UIImage *)image
                                 animated:(BOOL)animated
                                hideAfter:(float)delay;
++ (YRDropdownView *)showDropdownInwindow :(UIWindow *)window 
+                                    title:(NSString *)title 
+                                   detail:(NSString *)detail 
+                                    image:(UIImage *)image
+                                 animated:(BOOL)animated
+                                hideAfter:(float)delay
+                       setBackgroundImage:(NSString*)colour;
++ (YRDropdownView *)showDropdownInWindow:(UIWindow *)window  
+                                   title:(NSString *)title 
+                                  detail:(NSString *)detail 
+                                   image:(UIImage *)image
+                                animated:(BOOL)animated
+                               hideAfter:(float)delay
+                              setUIcolor:(UIColor*)colour
+                          setPrettyLayer:(NSString*)overlayer;
 
 + (BOOL)hideDropdownInWindow:(UIWindow *)window;
 + (BOOL)hideDropdownInWindow:(UIWindow *)window animated:(BOOL)animated;
@@ -95,5 +128,8 @@
 #pragma mark -
 - (void)show:(BOOL)animated;
 - (void)hide:(BOOL)animated;
+#pragma mark colour init
+
+-(id) initWithFrameCustom: (CGRect)frame: (UIColor*)color: (NSString*)backgroundImageName;
 
 @end
