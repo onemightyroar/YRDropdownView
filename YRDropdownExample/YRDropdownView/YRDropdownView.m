@@ -253,10 +253,10 @@ static YRDropdownView *currentDropdown = nil;
         dropdown.accessoryImage = image;
     }
 	
-	CGRect dropdownFrame = dropdown.frame;
-	CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
-	dropdownFrame.origin.y = appFrame.origin.y;
-	dropdown.frame = dropdownFrame;
+    CGRect dropdownFrame = dropdown.frame;
+    CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
+    dropdownFrame.origin.y = appFrame.origin.y;
+    dropdown.frame = dropdownFrame;
 	
     [window addSubview:dropdown];
     [dropdown show:animated];
