@@ -142,17 +142,23 @@ static YRDropdownView *currentDropdown = nil;
     }
     return self;
 }
-- (id)initWithFrameOfColor:(CGRect)frame: (NSString*)color
-{
+-(id) initWithFrameCustom: (CGRect)frame: (UIColor*)color: (NSString*)backgroundImageName{
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
         self.titleText = nil;
         self.detailText = nil;
         self.minHeight = 44.0f;
-        NSString * permutationString = [NSString stringWithFormat:@"bg-%@.png",color];
-        NSLog(@"permutation string is:%@",permutationString);
-        self.backgroundImage = [UIImage imageNamed:permutationString];
+        if (color) {
+            self.backgroundColor = color;
+            NSString * permutationString = [NSString stringWithFormat:@"bg-%@.png",backgroundImageName];
+            self.backgroundImage = [UIImage imageNamed:permutationString];
+        } else {
+            NSString * permutationString = [NSString stringWithFormat:@"bg-%@.png",color];
+            NSLog(@"permutation string is:%@",permutationString);
+            self.backgroundImage = [UIImage imageNamed:permutationString];
+        }
+        
         self.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         
         titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
@@ -169,34 +175,7 @@ static YRDropdownView *currentDropdown = nil;
         onTouch = @selector(hide:);
     }
     return self;
-}
-- (id)initWithFrameOfUIColor:(CGRect)frame: (UIColor*)color
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-        self.titleText = nil;
-        self.detailText = nil;
-        self.minHeight = 44.0f;
 
-        self.backgroundColor = color;
-        self.backgroundImage = [UIImage imageNamed:@"bg-glossLayer"];
-        self.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
-        
-        titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
-        detailLabel = [[UILabel alloc] initWithFrame:self.bounds];
-        backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        backgroundImageView.image = [self.backgroundImage stretchableImageWithLeftCapWidth:1 topCapHeight:self.backgroundImage.size.height/2];
-        backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-        
-        accessoryImageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        [self addSubview:backgroundImageView];
-        
-        self.opaque = YES;
-        
-        onTouch = @selector(hide:);
-    }
-    return self;
 }
 
 
@@ -247,7 +226,7 @@ static YRDropdownView *currentDropdown = nil;
         [currentDropdown hideUsingAnimation:[NSNumber numberWithBool:animated]];
     }
     
-    YRDropdownView *dropdown = [[YRDropdownView alloc] initWithFrameOfColor:CGRectMake(0, 0, view.bounds.size.width, 44):(NSString*) colour];
+    YRDropdownView *dropdown = [[YRDropdownView alloc] initWithFrameCustom:CGRectMake(0, 0, view.bounds.size.width, 44) :nil : colour];
     currentDropdown = dropdown;
     dropdown.titleText = title;
     
@@ -280,7 +259,8 @@ static YRDropdownView *currentDropdown = nil;
                                  image:(UIImage *)image
                               animated:(BOOL)animated
                              hideAfter:(float)delay
-                         setUIcolor:(UIColor*)colour
+                            setUIcolor:(UIColor*)colour
+                        setPrettylayer:(NSString*)overlayer
 {
     if (currentDropdown) {
         [currentDropdown hideUsingAnimation:[NSNumber numberWithBool:animated]];
@@ -289,7 +269,7 @@ static YRDropdownView *currentDropdown = nil;
         colour = [UIColor grayColor];
     }
     
-    YRDropdownView *dropdown = [[YRDropdownView alloc] initWithFrameOfUIColor:CGRectMake(0, 0, view.bounds.size.width, 44):(UIColor*) colour];
+    YRDropdownView *dropdown = [[YRDropdownView alloc] initWithFrameCustom:CGRectMake(0, 0, view.bounds.size.width, 44) :colour :overlayer];
     
     currentDropdown = dropdown;
     dropdown.titleText = title;
@@ -385,7 +365,7 @@ static YRDropdownView *currentDropdown = nil;
         [currentDropdown hideUsingAnimation:[NSNumber numberWithBool:animated]];
     }
     
-    YRDropdownView *dropdown = [[YRDropdownView alloc] initWithFrameOfColor:CGRectMake(0, 0, window.bounds.size.width, 44):(NSString*) colour];
+    YRDropdownView *dropdown = [[YRDropdownView alloc] initWithFrameCustom:CGRectMake(0, 0, window.bounds.size.width, 44) :Nil :colour];
     currentDropdown = dropdown;
     dropdown.titleText = title;
     
@@ -419,6 +399,7 @@ static YRDropdownView *currentDropdown = nil;
                               animated:(BOOL)animated
                              hideAfter:(float)delay
                             setUIcolor:(UIColor*)colour
+                        setPrettyLayer:(NSString*)overlayer
 {
     if (currentDropdown) {
         [currentDropdown hideUsingAnimation:[NSNumber numberWithBool:animated]];
@@ -427,7 +408,7 @@ static YRDropdownView *currentDropdown = nil;
         colour = [UIColor grayColor];
     }
     
-    YRDropdownView *dropdown = [[YRDropdownView alloc] initWithFrameOfUIColor:CGRectMake(0, 0, window.bounds.size.width, 44):(UIColor*) colour];
+    YRDropdownView *dropdown = [[YRDropdownView alloc] initWithFrameCustom:CGRectMake(0, 0, window.bounds.size.width, 44) :colour :overlayer];
     
     currentDropdown = dropdown;
     dropdown.titleText = title;

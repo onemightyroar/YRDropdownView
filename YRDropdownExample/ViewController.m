@@ -37,7 +37,7 @@
 - (IBAction)showInView:(id)sender {
     
     //example using UIColour and image gradient
-    [YRDropdownView showDropdownInView:self.view title:@"background ui colour test" detail:@"testing testing 123" image:nil animated:YES hideAfter:0.0 setUIcolor:[UIColor colorWithRed:1 green:0 blue:0 alpha:1]];
+    [YRDropdownView showDropdownInView:self.view title:@"background ui colour test" detail:@"testing testing 123" image:nil animated:YES hideAfter:0.0 setUIcolor:[UIColor colorWithRed:1 green:0 blue:0 alpha:1]setPrettylayer:@"glossLayer"];
     // example using a green image..
    // [YRDropdownView showDropdownInView:self.view title:@"" detail:@"" image:nil animated:YES hideAfter:5 setBackgroundImage:@"green"];
 }

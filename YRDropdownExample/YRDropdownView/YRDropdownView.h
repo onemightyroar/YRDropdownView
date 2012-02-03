@@ -73,7 +73,9 @@
                                  image:(UIImage *)image
                               animated:(BOOL)animated
                              hideAfter:(float)delay
-                            setUIcolor:(UIColor*)colour;
+                            setUIcolor:(UIColor*)colour
+                        setPrettylayer:(NSString*)overlayer;
+
 
 + (BOOL)hideDropdownInView:(UIView *)view;
 + (BOOL)hideDropdownInView:(UIView *)view animated:(BOOL)animated;
@@ -117,7 +119,8 @@
                                    image:(UIImage *)image
                                 animated:(BOOL)animated
                                hideAfter:(float)delay
-                              setUIcolor:(UIColor*)colour;
+                              setUIcolor:(UIColor*)colour
+                          setPrettyLayer:(NSString*)overlayer;
 
 + (BOOL)hideDropdownInWindow:(UIWindow *)window;
 + (BOOL)hideDropdownInWindow:(UIWindow *)window animated:(BOOL)animated;
@@ -126,8 +129,7 @@
 - (void)show:(BOOL)animated;
 - (void)hide:(BOOL)animated;
 #pragma mark colour init
--(id) initWithFrameOfColor:(CGRect)frame:(NSString*)color;
--(id) initWithFrameOfUIColor:(CGRect)frame:(UIColor*)color;
 
+-(id) initWithFrameCustom: (CGRect)frame: (UIColor*)color: (NSString*)backgroundImageName;
 
 @end
