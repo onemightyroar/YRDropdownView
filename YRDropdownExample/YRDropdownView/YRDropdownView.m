@@ -252,13 +252,12 @@ static YRDropdownView *currentDropdown = nil;
     if (image) {
         dropdown.accessoryImage = image;
     }
-        
-    if (![UIApplication sharedApplication].statusBarHidden) {
-        CGRect frame = dropdown.frame;
-        frame.origin.y += [UIApplication sharedApplication].statusBarFrame.size.height;
-        dropdown.frame = frame;
-    }
-
+	
+	CGRect dropdownFrame = dropdown.frame;
+	CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
+	dropdownFrame.origin.y = appFrame.origin.y;
+	dropdown.frame = dropdownFrame;
+	
     [window addSubview:dropdown];
     [dropdown show:animated];
     if (delay != 0.0) {
