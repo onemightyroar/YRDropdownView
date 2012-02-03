@@ -62,36 +62,6 @@
 + (BOOL)hideDropdownInView:(UIView *)view;
 + (BOOL)hideDropdownInView:(UIView *)view animated:(BOOL)animated;
 
-#pragma mark - Window methods
-
-+ (YRDropdownView *)showDropdownInWindow:(UIWindow *)window 
-                                   title:(NSString *)title;
-
-+ (YRDropdownView *)showDropdownInWindow:(UIWindow *)window 
-                                   title:(NSString *)title
-                                  detail:(NSString *)detail;
-
-+ (YRDropdownView *)showDropdownInWindow:(UIWindow *)window 
-                                   title:(NSString *)title
-                                  detail:(NSString *)detail
-                                animated:(BOOL)animated;
-
-+ (YRDropdownView *)showDropdownInWindow:(UIWindow *)window 
-                                   title:(NSString *)title
-                                  detail:(NSString *)detail
-                                   image:(UIImage *)image
-                                animated:(BOOL)animated;
-
-+ (YRDropdownView *)showDropdownInWindow:(UIWindow *)window 
-                                   title:(NSString *)title
-                                  detail:(NSString *)detail
-                                   image:(UIImage *)image
-                                animated:(BOOL)animated
-                               hideAfter:(float)delay;
-
-+ (BOOL)hideDropdownInWindow:(UIWindow *)window;
-+ (BOOL)hideDropdownInWindow:(UIWindow *)window animated:(BOOL)animated;
-
 #pragma mark -
 - (void)show:(BOOL)animated;
 - (void)hide:(BOOL)animated;
