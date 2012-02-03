@@ -59,6 +59,14 @@
                               animated:(BOOL)animated
                              hideAfter:(float)delay;
 
++ (YRDropdownView *)showDropdownInView:(UIView *)view
+                                 title:(NSString *)title
+                                detail:(NSString *)detail
+                                 image:(UIImage *)image
+                              animated:(BOOL)animated
+                             hideAfter:(float)delay
+                         setBackground:(NSString*)colour; 
+
 + (BOOL)hideDropdownInView:(UIView *)view;
 + (BOOL)hideDropdownInView:(UIView *)view animated:(BOOL)animated;
 
@@ -95,5 +103,8 @@
 #pragma mark -
 - (void)show:(BOOL)animated;
 - (void)hide:(BOOL)animated;
+#pragma mark colour init
+-(id) initWithFrameOfColor:(CGRect)frame:(NSString*)color;
+
 
 @end
