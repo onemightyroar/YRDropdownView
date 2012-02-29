@@ -41,6 +41,8 @@
 @synthesize accessoryImage;
 @synthesize onTouch;
 @synthesize shouldAnimate;
+@synthesize isView;
+@synthesize isWindow;
 
 //Using this prevents two alerts to ever appear on the screen at the same time
 //TODO: Queue alerts, if multiple
@@ -139,6 +141,8 @@ static YRDropdownView *currentDropdown = nil;
         self.opaque = YES;
         
         onTouch = @selector(hide:);
+        currentDropdown.isWindow = NO;
+        currentDropdown.isView = NO;
     }
     return self;
 }
@@ -200,14 +204,21 @@ static YRDropdownView *currentDropdown = nil;
     dropdown.shouldAnimate = animated;
     
     if ([view isKindOfClass:[UIWindow class]]) {
+        currentDropdown.isWindow = YES;
         CGRect dropdownFrame = dropdown.frame;
         CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
         dropdownFrame.origin.y = appFrame.origin.y;
         dropdown.frame = dropdownFrame;
+    }else{
+        currentDropdown.isView = YES;
     }
-
+        
     [view addSubview:dropdown];
     [dropdown show:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:dropdown selector:@selector(flipViewAccordingToStatusBarOrientation:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];  
+    [dropdown flipViewAccordingToStatusBarOrientation:nil];
+
     if (delay != 0.0) {
         [dropdown performSelector:@selector(hideUsingAnimation:) withObject:[NSNumber numberWithBool:animated] afterDelay:delay+ANIMATION_DURATION];
     }
@@ -229,11 +240,15 @@ static YRDropdownView *currentDropdown = nil;
 
 + (BOOL)hideDropdownInView:(UIView *)view
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+
     return [YRDropdownView hideDropdownInView:view animated:YES];
 }
 
 + (BOOL)hideDropdownInView:(UIView *)view animated:(BOOL)animated
 {
+    currentDropdown.isWindow = NO;
+    currentDropdown.isView = NO;
     if (currentDropdown) {
         [currentDropdown hideUsingAnimation:[NSNumber numberWithBool:animated]];
         return YES;
@@ -390,16 +405,83 @@ static YRDropdownView *currentDropdown = nil;
     }
     
     CGFloat dropdownHeight = 44.0f;
+    CGFloat startCoord = 0.0f;
+
     if (self.detailText) {
         dropdownHeight = MAX(CGRectGetMaxY(self.bounds), CGRectGetMaxY(detailLabel.frame));
         dropdownHeight += VERTICAL_PADDING;
     } 
             
-    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, dropdownHeight)];
+    if(currentDropdown.isWindow){
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        switch (orientation){
+            case UIInterfaceOrientationPortrait:
+                [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width,dropdownHeight)];
+                break;
+            case UIInterfaceOrientationPortraitUpsideDown:
+                startCoord = self.frame.origin.y - dropdownHeight;
+                [self setFrame:CGRectMake(self.frame.origin.x, startCoord, self.frame.size.width,dropdownHeight)];
+                break;
+            case UIInterfaceOrientationLandscapeLeft:
+                // startCoord = self.frame.origin.x - dropdownHeight;
+                [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, dropdownHeight,self.frame.size.height)];
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+                startCoord = self.frame.origin.x - dropdownHeight;
+                [self setFrame:CGRectMake(startCoord, self.frame.origin.y, dropdownHeight,self.frame.size.height)];
+                break;
+        } 
+        
+        
+    }
+    if(currentDropdown.isView)
+        [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width,dropdownHeight)];
     
     [backgroundImageView setFrame:self.bounds];
         
 }
+
+- (void)flipViewAccordingToStatusBarOrientation:(NSNotification *)notification {
+        
+    if (currentDropdown.isWindow) {
+        
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        
+        CGFloat angle = 0.0;
+        CGRect newFrame = self.window.bounds;
+        CGSize statusBarSize = [[UIApplication sharedApplication] statusBarFrame].size;
+        
+        CGFloat dropdownHeight = 44.0f;
+        
+        switch (orientation) { 
+            case UIInterfaceOrientationPortraitUpsideDown:
+                angle = M_PI; 
+                newFrame.origin.y = newFrame.size.height - statusBarSize.height;
+                newFrame.size.height = dropdownHeight;
+                break;
+            case UIInterfaceOrientationLandscapeLeft:
+                angle = - M_PI / 2.0f;
+                newFrame.origin.x = statusBarSize.width;
+                newFrame.size.width = dropdownHeight;
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+                angle = M_PI / 2.0f;
+                newFrame.origin.x = newFrame.size.width - statusBarSize.width;
+                newFrame.size.width = dropdownHeight;
+                break;
+            default: // as UIInterfaceOrientationPortrait
+                angle = 0.0;
+                newFrame.origin.y += statusBarSize.height;
+                newFrame.size.height = dropdownHeight;
+                newFrame.size.width = statusBarSize.width;
+                break;
+        } 
+        
+        self.transform = CGAffineTransformMakeRotation(angle);
+        self.frame = newFrame;
+    }
+}
+
 
 @end
 

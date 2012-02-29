@@ -22,6 +22,9 @@
     SEL onTouch;
     NSDate *showStarted;
     BOOL shouldAnimate;
+    BOOL isWindow;
+    BOOL isView;
+
 }
 
 @property (copy) NSString *titleText;
@@ -31,6 +34,9 @@
 @property (nonatomic, assign) UIImage *backgroundImage;
 @property (nonatomic, assign) SEL onTouch;
 @property (assign) BOOL shouldAnimate;
+@property (assign) BOOL isWindow;
+@property (assign) BOOL isView;
+
 
 #pragma mark - View methods
 
@@ -63,6 +69,7 @@
 + (BOOL)hideDropdownInView:(UIView *)view animated:(BOOL)animated;
 
 #pragma mark -
+- (void)flipViewAccordingToStatusBarOrientation:(NSNotification *)notification;
 - (void)show:(BOOL)animated;
 - (void)hide:(BOOL)animated;
 
