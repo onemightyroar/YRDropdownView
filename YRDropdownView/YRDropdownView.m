@@ -43,6 +43,7 @@
 @synthesize shouldAnimate;
 @synthesize titleLabelColor;
 @synthesize detailLabelColor;
+@synthesize tapBlock;
 
 //Using this prevents two alerts to ever appear on the screen at the same time
 //TODO: Queue alerts, if multiple
@@ -372,6 +373,13 @@ static YRDropdownView *currentDropdown = nil;
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
+    if(self.tapBlock)
+    {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.tapBlock();
+        });
+    }
+    
     [self hideUsingAnimation:[NSNumber numberWithBool:self.shouldAnimate]];
 }
 

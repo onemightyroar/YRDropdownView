@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+typedef void (^YRTapBlock)(void);
+
 @interface YRDropdownView : UIView
 {
     NSString *titleText;
@@ -24,6 +26,8 @@
     SEL onTouch;
     NSDate *showStarted;
     BOOL shouldAnimate;
+    
+    YRTapBlock  tapBlock;
 }
 
 @property (copy) NSString *titleText;
@@ -35,6 +39,8 @@
 @property (nonatomic, assign) UIImage *backgroundImage;
 @property (nonatomic, assign) SEL onTouch;
 @property (assign) BOOL shouldAnimate;
+
+@property (copy) YRTapBlock  tapBlock;
 
 #pragma mark - View methods
 
