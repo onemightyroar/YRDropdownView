@@ -516,6 +516,7 @@ static YRDropdownView *currentDropdown = nil;
         CGFloat colorStops[4] = {0.0, 0.85, 0.95, 1.0};
         CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
         _backgroundGradient = CGGradientCreateWithColorComponents(colorSpace, colors, colorStops, 4);
+        CGColorSpaceRelease(colorSpace);
     }
     return _backgroundGradient;
 }
