@@ -31,7 +31,6 @@
 @interface YRDropdownView ()
 
 - (CGGradientRef)backgroundGradient;
-- (void)drawBackgroundGradient;
 
 - (void)updateTitleLabel:(NSString *)newText;
 - (void)updateDetailLabel:(NSString *)newText;
@@ -141,7 +140,6 @@ static YRDropdownView *currentDropdown = nil;
         titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
         detailLabel = [[UILabel alloc] initWithFrame:self.bounds];
         backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        backgroundImageView.image = [self.backgroundImage stretchableImageWithLeftCapWidth:1 topCapHeight:self.backgroundImage.size.height/2];
         backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         
         accessoryImageView = [[UIImageView alloc] initWithFrame:self.bounds];
@@ -248,6 +246,7 @@ static YRDropdownView *currentDropdown = nil;
     YRDropdownView *dropdown = [[YRDropdownView alloc] initWithFrame:CGRectMake(0, 0, view.bounds.size.width, 44)];
     currentDropdown = dropdown;
     dropdown.titleText = title;
+    dropdown.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 
     if (detail) {
         dropdown.detailText = detail;
@@ -259,8 +258,6 @@ static YRDropdownView *currentDropdown = nil;
     
     if (backgroundImage) {
         dropdown.backgroundImage = backgroundImage;
-    } else {
-//        dropdown.backgroundImage = [UIImage imageNamed:@"bg-yellow.png"];
     }
     
     if (titleLabelColor) {
@@ -405,13 +402,13 @@ static YRDropdownView *currentDropdown = nil;
     CGColorRef color = [titleLabel.textColor CGColor];
     const CGFloat *components = CGColorGetComponents(color);
     float total = 0.0;
-    for (int i = 0; i < (int)CGColorGetNumberOfComponents(color)-1; i++){
+    for (int i = 0; i < (int)CGColorGetNumberOfComponents(color)-1; i++) {
         total += components[i];
     }
     if ((total/((int)CGColorGetNumberOfComponents(color)-1)) > 0.5){
         titleLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.25];
         titleLabel.shadowOffset = CGSizeMake(0, -1/[[UIScreen mainScreen] scale]);
-    }else {
+    } else {
         titleLabel.shadowColor = [UIColor colorWithWhite:1 alpha:0.35];
         titleLabel.shadowOffset = CGSizeMake(0, 1/[[UIScreen mainScreen] scale]);
     }
@@ -501,9 +498,10 @@ static YRDropdownView *currentDropdown = nil;
             
     [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, dropdownHeight)];
     
-    [backgroundImageView setImage:[backgroundImage stretchableImageWithLeftCapWidth:1 topCapHeight:backgroundImage.size.height/2]];
-    [backgroundImageView setFrame:self.bounds];
-        
+    if (self.backgroundImage) {
+        backgroundImageView.image = [self.backgroundImage stretchableImageWithLeftCapWidth:1 topCapHeight:self.backgroundImage.size.height/2];
+        backgroundImageView.frame = self.bounds;
+    }
 }
 
 #pragma mark - Draw Methods
@@ -522,15 +520,12 @@ static YRDropdownView *currentDropdown = nil;
     return _backgroundGradient;
 }
 
-- (void)drawBackgroundGradient {
+- (void)drawRect:(CGRect)rect {
     CGContextRef ctx = UIGraphicsGetCurrentContext();
+    
     CGPoint startPoint = {0.0, 0.0};
     CGPoint endPoint = {0.0, self.bounds.size.height};
     CGContextDrawLinearGradient(ctx, [self backgroundGradient], startPoint, endPoint, 0);
-}
-
-- (void)drawRect:(CGRect)rect {
-    [self drawBackgroundGradient];
 }
 
 @end
