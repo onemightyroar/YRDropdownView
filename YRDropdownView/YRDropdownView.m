@@ -263,7 +263,7 @@ static YRDropdownView *currentDropdown = nil;
     
     [view addSubview:dropdown];
     [dropdown show:animated];
-    if (delay != 0.0) {
+    if (delay > 0.0) {
         [dropdown performSelector:@selector(hideUsingAnimation:) withObject:[NSNumber numberWithBool:animated] afterDelay:delay+ANIMATION_DURATION];
     }
 
