@@ -24,6 +24,9 @@
     SEL onTouch;
     NSDate *showStarted;
     BOOL shouldAnimate;
+    
+    @private
+    CGGradientRef _backgroundGradient;
 }
 
 @property (copy) NSString *titleText;

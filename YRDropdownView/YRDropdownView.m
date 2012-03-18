@@ -10,7 +10,9 @@
 #import <QuartzCore/QuartzCore.h>
 
 @interface UILabel (YRDropdownView)
+
 - (void)sizeToFitFixedWidth:(CGFloat)fixedWidth;
+
 @end
 
 @implementation UILabel (YRDropdownView)
@@ -23,13 +25,19 @@
     self.numberOfLines = 0;
     [self sizeToFit];
 }
+
 @end
 
 @interface YRDropdownView ()
+
+- (CGGradientRef)backgroundGradient;
+- (void)drawBackgroundGradient;
+
 - (void)updateTitleLabel:(NSString *)newText;
 - (void)updateDetailLabel:(NSString *)newText;
 - (void)hideUsingAnimation:(NSNumber *)animated;
 - (void)done;
+
 @end
 
 
@@ -114,6 +122,7 @@ static YRDropdownView *currentDropdown = nil;
 
 
 #pragma mark - Initializers
+
 - (id)init {
     return [self initWithFrame:CGRectMake(0.0f, 0.0f, 320.0f, 44.0f)];
 }
@@ -123,10 +132,10 @@ static YRDropdownView *currentDropdown = nil;
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
+        _backgroundGradient = NULL;
         self.titleText = nil;
         self.detailText = nil;
         self.minHeight = 44.0f;
-//        self.backgroundImage = [UIImage imageNamed:@"bg-yellow.png"];
         self.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleRightMargin;
         
         titleLabel = [[UILabel alloc] initWithFrame:self.bounds];
@@ -143,6 +152,16 @@ static YRDropdownView *currentDropdown = nil;
         onTouch = @selector(hide:);
     }
     return self;
+}
+
+#pragma mark - Memory Management
+
+- (void)dealloc
+{
+    if (_backgroundGradient) {
+        CGGradientRelease(_backgroundGradient);
+    }
+    [super dealloc];
 }
 
 #pragma mark - Defines
@@ -188,7 +207,7 @@ static YRDropdownView *currentDropdown = nil;
                                         title:title 
                                        detail:detail 
                                         image:image 
-                              backgroundImage:[UIImage imageNamed:@"bg-yellow.png"] 
+                              backgroundImage:nil 
                                      animated:animated 
                                     hideAfter:delay]; 
 }
@@ -241,7 +260,7 @@ static YRDropdownView *currentDropdown = nil;
     if (backgroundImage) {
         dropdown.backgroundImage = backgroundImage;
     } else {
-        dropdown.backgroundImage = [UIImage imageNamed:@"bg-yellow.png"];
+//        dropdown.backgroundImage = [UIImage imageNamed:@"bg-yellow.png"];
     }
     
     if (titleLabelColor) {
@@ -305,8 +324,7 @@ static YRDropdownView *currentDropdown = nil;
         YRDropdownView *dropdown = (YRDropdownView *)viewToRemove;
         [dropdown hideUsingAnimation:[NSNumber numberWithBool:animated]];
         return YES;
-    }
-    else {
+    } else {
         return NO;
     }
 }
@@ -358,8 +376,7 @@ static YRDropdownView *currentDropdown = nil;
                                  [self done];
                              }
                          }];        
-    }
-    else {
+    } else {
         self.alpha = 0.0f;
         [self done];
     }
@@ -426,7 +443,7 @@ static YRDropdownView *currentDropdown = nil;
         if ((total/((int)CGColorGetNumberOfComponents(color)-1)) > 0.5){
             detailLabel.shadowColor = [UIColor colorWithWhite:0 alpha:0.25];
             detailLabel.shadowOffset = CGSizeMake(0, -1/[[UIScreen mainScreen] scale]);
-        }else {
+        } else {
             detailLabel.shadowColor = [UIColor colorWithWhite:1 alpha:0.35];
             detailLabel.shadowOffset = CGSizeMake(0, 1/[[UIScreen mainScreen] scale]);
         }
@@ -489,6 +506,31 @@ static YRDropdownView *currentDropdown = nil;
         
 }
 
+#pragma mark - Draw Methods
+
+- (CGGradientRef)backgroundGradient {
+    if (NULL == _backgroundGradient) {
+        CGFloat colors[16] = {255.0 / 255.0, 228.0 / 255.0, 137.0 / 255.0, 1.0,
+            242.0 / 255.0, 203.0 / 255.0, 71.0 / 255.0, 1.0,
+            241.0 / 255.0, 211.0 / 255.0, 108.0 / 255.0, 1.0,
+            197.0 / 255.0, 157.0 / 255.0, 19.0 / 255.0, 1.0
+        };
+        CGFloat colorStops[4] = {0.0, 0.85, 0.95, 1.0};
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+        _backgroundGradient = CGGradientCreateWithColorComponents(colorSpace, colors, colorStops, 4);
+    }
+    return _backgroundGradient;
+}
+
+- (void)drawBackgroundGradient {
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGPoint startPoint = {0.0, 0.0};
+    CGPoint endPoint = {0.0, self.bounds.size.height};
+    CGContextDrawLinearGradient(ctx, [self backgroundGradient], startPoint, endPoint, 0);
+}
+
+- (void)drawRect:(CGRect)rect {
+    [self drawBackgroundGradient];
+}
+
 @end
-
-
