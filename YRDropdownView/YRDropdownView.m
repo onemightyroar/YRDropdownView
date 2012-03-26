@@ -43,7 +43,7 @@
 @synthesize shouldAnimate;
 @synthesize titleLabelColor;
 @synthesize detailLabelColor;
-@synthesize tapBlock;
+@synthesize tapBlock = _tapBlock;
 
 //Using this prevents two alerts to ever appear on the screen at the same time
 //TODO: Queue alerts, if multiple
@@ -142,6 +142,8 @@ static YRDropdownView *currentDropdown = nil;
         self.opaque = YES;
         
         onTouch = @selector(hide:);
+        
+        _tapQueue = dispatch_get_main_queue();
     }
     return self;
 }
@@ -495,6 +497,26 @@ static YRDropdownView *currentDropdown = nil;
     [backgroundImageView setImage:[backgroundImage stretchableImageWithLeftCapWidth:1 topCapHeight:backgroundImage.size.height/2]];
     [backgroundImageView setFrame:self.bounds];
         
+}
+
+-(void)setTapBlock:(YRTapBlock)tapBlock
+{
+    [self setTapBlock:tapBlock 
+            withQueue:nil];
+}
+
+-(void)setTapBlock:(YRTapBlock)tapBlock
+         withQueue:(dispatch_queue_t)dispatchQueue
+{
+    _tapBlock = [tapBlock copy];
+    if(dispatchQueue)
+    {
+        _tapQueue = dispatchQueue;
+    }
+    else 
+    {
+        _tapQueue = dispatch_get_main_queue();
+    }
 }
 
 @end

@@ -27,7 +27,8 @@ typedef void (^YRTapBlock)(void);
     NSDate *showStarted;
     BOOL shouldAnimate;
     
-    YRTapBlock  tapBlock;
+    YRTapBlock          _tapBlock;
+    dispatch_queue_t    _tapQueue;
 }
 
 @property (copy) NSString *titleText;
@@ -40,7 +41,7 @@ typedef void (^YRTapBlock)(void);
 @property (nonatomic, assign) SEL onTouch;
 @property (assign) BOOL shouldAnimate;
 
-@property (copy) YRTapBlock  tapBlock;
+@property (nonatomic, copy) YRTapBlock  tapBlock;
 
 #pragma mark - View methods
 
@@ -93,5 +94,9 @@ typedef void (^YRTapBlock)(void);
 #pragma mark -
 - (void)show:(BOOL)animated;
 - (void)hide:(BOOL)animated;
+
+-(void)setTapBlock:(YRTapBlock)tapBlock
+         withQueue:(dispatch_queue_t)dispatchQueue;
+
 
 @end
