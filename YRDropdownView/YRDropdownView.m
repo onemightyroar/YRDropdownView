@@ -11,6 +11,7 @@
 
 @interface UILabel (YRDropdownView)
 - (void)sizeToFitFixedWidth:(CGFloat)fixedWidth;
+
 @end
 
 @implementation UILabel (YRDropdownView)
@@ -282,7 +283,7 @@ static YRDropdownView *currentDropdown = nil;
     
     [currentDropdown removeFromSuperview];
     
-    [currentDropdown release];
+    //[currentDropdown release];
     currentDropdown = nil;
 }
 
@@ -377,7 +378,7 @@ static YRDropdownView *currentDropdown = nil;
 {
     if(self.tapBlock)
     {
-        dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(_tapQueue, ^{
             self.tapBlock();
         });
     }

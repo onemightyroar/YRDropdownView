@@ -17,9 +17,9 @@ typedef void (^YRTapBlock)(void);
     NSString *detailText;
     UILabel *titleLabel;
     UILabel *detailLabel;
-    UIImage *backgroundImage;
+    //UIImage *backgroundImage;
     UIImageView *backgroundImageView;
-    UIImage *accessoryImage;
+    //UIImage *accessoryImage;
     UIImageView *accessoryImageView;
     UIColor *titleLabelColor;
     UIColor *detailLabelColor;
@@ -33,11 +33,13 @@ typedef void (^YRTapBlock)(void);
 
 @property (copy) NSString *titleText;
 @property (copy) NSString *detailText;
-@property (assign) UIImage *accessoryImage;
+
+@property (nonatomic, strong) UIImage *accessoryImage;
+@property (nonatomic, strong) UIImage *backgroundImage;
+
 @property (assign) float minHeight;
 @property (retain) UIColor *titleLabelColor;
 @property (retain) UIColor *detailLabelColor;
-@property (nonatomic, assign) UIImage *backgroundImage;
 @property (nonatomic, assign) SEL onTouch;
 @property (assign) BOOL shouldAnimate;
 
