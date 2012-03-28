@@ -9,32 +9,41 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
+typedef void (^YRTapBlock)(void);
+
 @interface YRDropdownView : UIView
 {
     NSString *titleText;
     NSString *detailText;
     UILabel *titleLabel;
     UILabel *detailLabel;
-    UIImage *backgroundImage;
+    //UIImage *backgroundImage;
     UIImageView *backgroundImageView;
-    UIImage *accessoryImage;
+    //UIImage *accessoryImage;
     UIImageView *accessoryImageView;
     UIColor *titleLabelColor;
     UIColor *detailLabelColor;
     SEL onTouch;
     NSDate *showStarted;
     BOOL shouldAnimate;
+    
+    YRTapBlock          _tapBlock;
+    dispatch_queue_t    _tapQueue;
 }
 
 @property (copy) NSString *titleText;
 @property (copy) NSString *detailText;
-@property (assign) UIImage *accessoryImage;
+
+@property (nonatomic, strong) UIImage *accessoryImage;
+@property (nonatomic, strong) UIImage *backgroundImage;
+
 @property (assign) float minHeight;
 @property (retain) UIColor *titleLabelColor;
 @property (retain) UIColor *detailLabelColor;
-@property (nonatomic, assign) UIImage *backgroundImage;
 @property (nonatomic, assign) SEL onTouch;
 @property (assign) BOOL shouldAnimate;
+
+@property (nonatomic, copy) YRTapBlock  tapBlock;
 
 #pragma mark - View methods
 
@@ -87,5 +96,9 @@
 #pragma mark -
 - (void)show:(BOOL)animated;
 - (void)hide:(BOOL)animated;
+
+-(void)setTapBlock:(YRTapBlock)tapBlock
+         withQueue:(dispatch_queue_t)dispatchQueue;
+
 
 @end
