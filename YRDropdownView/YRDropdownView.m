@@ -283,7 +283,9 @@ static YRDropdownView *currentDropdown = nil;
     
     [currentDropdown removeFromSuperview];
     
-    //[currentDropdown release];
+#if !(__has_feature(objc_arc))
+    [currentDropdown release];
+#endif
     currentDropdown = nil;
 }
 
