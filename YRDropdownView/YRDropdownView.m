@@ -230,7 +230,7 @@ static YRDropdownView *currentDropdown = nil;
         [currentDropdown hideUsingAnimation:[NSNumber numberWithBool:animated]];
     }
     
-    YRDropdownView *dropdown = [[YRDropdownView alloc] initWithFrame:CGRectMake(0, 0, view.bounds.size.width, 44)];
+    YRDropdownView *dropdown = [[YRDropdownView alloc] initWithFrame:CGRectMake(0, view.bounds.origin.y, view.bounds.size.width, 44)];
     currentDropdown = dropdown;
     dropdown.titleText = title;
 
