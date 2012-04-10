@@ -48,15 +48,12 @@
                                title:@"Warning" 
                               detail:nil
                                image:nil
-                            animated:NO
+                            animated:YES
                            hideAfter:0.0];
 }
 
 - (IBAction)hide:(id)sender {
     [YRDropdownView hideDropdownInView:demoView animated:YES];
 }
-- (void)dealloc {
-    [demoView release];
-    [super dealloc];
-}
+
 @end
