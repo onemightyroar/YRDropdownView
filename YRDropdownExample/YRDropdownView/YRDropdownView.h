@@ -15,8 +15,6 @@
     NSString *detailText;
     UILabel *titleLabel;
     UILabel *detailLabel;
-    UIImage *backgroundImage;
-    UIImageView *backgroundImageView;
     UIImage *accessoryImage;
     UIImageView *accessoryImageView;
     SEL onTouch;
@@ -24,13 +22,14 @@
     BOOL shouldAnimate;
 }
 
-@property (copy) NSString *titleText;
-@property (copy) NSString *detailText;
-@property (assign) UIImage *accessoryImage;
-@property (assign) float minHeight;
-@property (nonatomic, assign) UIImage *backgroundImage;
+@property (nonatomic, copy) NSString *titleText;
+@property (nonatomic, copy) NSString *detailText;
+@property (nonatomic, strong) UIImage *accessoryImage;
+@property (nonatomic, assign) float minHeight;
 @property (nonatomic, assign) SEL onTouch;
-@property (assign) BOOL shouldAnimate;
+@property (nonatomic, assign) BOOL shouldAnimate;
+@property (nonatomic, strong) NSMutableArray * backgroundColors;
+@property (nonatomic, strong) NSMutableArray * backgroundColorPositions;
 
 #pragma mark - View methods
 
@@ -61,6 +60,8 @@
 
 + (BOOL)hideDropdownInView:(UIView *)view;
 + (BOOL)hideDropdownInView:(UIView *)view animated:(BOOL)animated;
+
++ (void)setRtl:(BOOL)rtl;
 
 #pragma mark -
 - (void)show:(BOOL)animated;
