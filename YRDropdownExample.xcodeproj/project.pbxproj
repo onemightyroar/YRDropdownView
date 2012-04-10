@@ -17,8 +17,6 @@
 		2D5FCB5D14D30C2C00DA334B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5FCB5C14D30C2C00DA334B /* AppDelegate.m */; };
 		2D5FCB6014D30C2C00DA334B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5FCB5F14D30C2C00DA334B /* ViewController.m */; };
 		2D5FCB6314D30C2C00DA334B /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D5FCB6114D30C2C00DA334B /* ViewController.xib */; };
-		2DC084D814D878460013863F /* bg-yellow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DC084D414D878460013863F /* bg-yellow.png */; };
-		2DC084D914D878460013863F /* bg-yellow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 2DC084D514D878460013863F /* bg-yellow@2x.png */; };
 		2DC084DA14D878460013863F /* YRDropdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC084D714D878460013863F /* YRDropdownView.m */; };
 /* End PBXBuildFile section */
 
@@ -39,8 +37,6 @@
 		2D5FCB5F14D30C2C00DA334B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		2D5FCB6214D30C2C00DA334B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ViewController.xib; sourceTree = "<group>"; };
 		2D5FCB7214D321BC00DA334B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		2DC084D414D878460013863F /* bg-yellow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg-yellow.png"; path = "YRDropdownView/bg-yellow.png"; sourceTree = "<group>"; };
-		2DC084D514D878460013863F /* bg-yellow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "bg-yellow@2x.png"; path = "YRDropdownView/bg-yellow@2x.png"; sourceTree = "<group>"; };
 		2DC084D614D878460013863F /* YRDropdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRDropdownView.h; path = YRDropdownView/YRDropdownView.h; sourceTree = "<group>"; };
 		2DC084D714D878460013863F /* YRDropdownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YRDropdownView.m; path = YRDropdownView/YRDropdownView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -62,8 +58,6 @@
 		2D3DC25414D7419F00898E62 /* YRDropdownView */ = {
 			isa = PBXGroup;
 			children = (
-				2DC084D414D878460013863F /* bg-yellow.png */,
-				2DC084D514D878460013863F /* bg-yellow@2x.png */,
 				2DC084D614D878460013863F /* YRDropdownView.h */,
 				2DC084D714D878460013863F /* YRDropdownView.m */,
 			);
@@ -188,8 +182,6 @@
 				2D5FCB6314D30C2C00DA334B /* ViewController.xib in Resources */,
 				2D3DC25114D73F8E00898E62 /* dropdown-alert@2x.png in Resources */,
 				2D3DC25214D73F8E00898E62 /* dropdown-alert.png in Resources */,
-				2DC084D814D878460013863F /* bg-yellow.png in Resources */,
-				2DC084D914D878460013863F /* bg-yellow@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -234,6 +226,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -248,7 +241,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -258,6 +250,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -265,7 +258,6 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
