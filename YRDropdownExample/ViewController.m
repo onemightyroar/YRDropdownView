@@ -48,7 +48,7 @@
                                title:@"Warning" 
                               detail:nil
                                image:nil
-                            animated:YES
+                            animated:NO
                            hideAfter:0.0];
 }
 
