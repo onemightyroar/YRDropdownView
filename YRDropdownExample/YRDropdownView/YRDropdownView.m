@@ -16,6 +16,8 @@
 @interface YRDropdownView ()
 @property (nonatomic, unsafe_unretained) UIView * parentView;
 @property (nonatomic, assign) float hideAfter;
+@property (nonatomic, assign, readwrite) BOOL isView;
+@property (nonatomic, assign) float dropdownHeight;
 @end
 
 @implementation UILabel (YRDropdownView)
@@ -44,6 +46,7 @@
 @synthesize minHeight;
 @synthesize accessoryImage;
 @synthesize onTouch;
+@synthesize isView, dropdownHeight = _dropdownHeight;
 @synthesize shouldAnimate, hideAfter, parentView;
 @synthesize backgroundColors, backgroundColorPositions;
 
@@ -147,6 +150,7 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
         accessoryImageView = [[UIImageView alloc] initWithFrame:self.bounds];
         
         self.opaque = YES;
+        self.isView = NO;
         
         onTouch = @selector(hide:);
     }
@@ -156,7 +160,6 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
 - (void)drawRect:(CGRect)rect
 {
     // Routine to draw the gradient background - danielgindi@gmail.com
-    
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     // Clear everything
@@ -173,7 +176,6 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
         if (n) gradientLocations[j] = [n floatValue];
         else gradientLocations[j] = j==0?0.0f:1.0f;
     }
-    
     
     // RGB color space. Free this later.
     CGColorSpaceRef rgb = CGColorSpaceCreateDeviceRGB();
@@ -237,6 +239,11 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
                          hideAfter:(float)hideAfter
 {
     YRDropdownView *dropdown = [[YRDropdownView alloc] initWithFrame:CGRectMake(0, 0, view.bounds.size.width, 44)];
+    if (![view isKindOfClass:[UIWindow class]]) 
+    {
+        dropdown.isView = YES;
+    }
+
     if (currentDropdown) // add to queue - danielgindi@gmail.com
     {
         if (!yrQueue) yrQueue = [NSMutableArray array];
@@ -260,13 +267,6 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
     dropdown.parentView = view;
     dropdown.hideAfter = hideAfter;
     
-    if ([view isKindOfClass:[UIWindow class]]) {
-        CGRect dropdownFrame = dropdown.frame;
-        CGRect appFrame = [[UIScreen mainScreen] applicationFrame];
-        dropdownFrame.origin.y = appFrame.origin.y;
-        dropdown.frame = dropdownFrame;
-    }
-
     if (currentDropdown == dropdown)
     {
         [dropdown.parentView addSubview:dropdown];
@@ -274,6 +274,8 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
         if (dropdown.hideAfter != 0.0) {
             [dropdown performSelector:@selector(hideUsingAnimation:) withObject:[NSNumber numberWithBool:dropdown.shouldAnimate] afterDelay:dropdown.hideAfter+ANIMATION_DURATION];
         }
+        [[NSNotificationCenter defaultCenter] addObserver:dropdown selector:@selector(flipViewAccordingToStatusBarOrientation:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+        [dropdown flipViewAccordingToStatusBarOrientation:nil];
     }
 
     return dropdown;
@@ -286,6 +288,7 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
     }
     
     [currentDropdown removeFromSuperview];
+    [[NSNotificationCenter defaultCenter] removeObserver:currentDropdown];
     
     currentDropdown = nil;
     
@@ -299,6 +302,8 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
         {
             [currentDropdown performSelector:@selector(hideUsingAnimation:) withObject:[NSNumber numberWithBool:currentDropdown.shouldAnimate] afterDelay:currentDropdown.hideAfter+ANIMATION_DURATION];
         }
+        [[NSNotificationCenter defaultCenter] addObserver:currentDropdown selector:@selector(flipViewAccordingToStatusBarOrientation:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+        [currentDropdown flipViewAccordingToStatusBarOrientation:nil];
     }
 }
 
@@ -336,16 +341,24 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
 {
     if(animated)
     {
-        self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y-self.frame.size.height, self.frame.size.width, self.frame.size.height);
-        self.alpha = 0.02;
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        BOOL rotatedY = orientation == UIInterfaceOrientationPortraitUpsideDown && !self.isView;
+        int rotated = self.isView?0:(orientation == UIInterfaceOrientationLandscapeLeft ? 1 : (orientation == UIInterfaceOrientationLandscapeRight ? 2 : 0));
+        if (orientation != UIInterfaceOrientationPortrait) [self layoutSubviews];
+        CGRect originalRc = self.frame;
+        self.frame = CGRectMake(
+                                originalRc.origin.x+(rotated==1?-originalRc.size.width:(rotated==2?originalRc.size.width:0)),
+                                originalRc.origin.y+(rotated?0:(rotatedY?originalRc.size.height:-originalRc.size.height)), 
+                                originalRc.size.width, 
+                                originalRc.size.height);
+        self.alpha = 0;
+        
         [UIView animateWithDuration:ANIMATION_DURATION
                               delay:0.0
                             options:UIViewAnimationOptionCurveEaseInOut
                          animations:^{
                              self.alpha = 1.0;
-                             self.frame = CGRectMake(self.frame.origin.x, 
-                                                     self.frame.origin.y+self.frame.size.height,
-                                                     self.frame.size.width, self.frame.size.height);
+                             self.frame = originalRc;
                          }
                          completion:^(BOOL finished) {
                              if (finished)
@@ -363,13 +376,21 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
 }
 
 - (void)hideUsingAnimation:(NSNumber *)animated {
-    if ([animated boolValue]) {
+    if ([animated boolValue]) 
+    {
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        BOOL rotatedY = orientation == UIInterfaceOrientationPortraitUpsideDown && !self.isView;
+        int rotated = self.isView?0:(orientation == UIInterfaceOrientationLandscapeLeft ? 1 : (orientation == UIInterfaceOrientationLandscapeRight ? 2 : 0));
         [UIView animateWithDuration:ANIMATION_DURATION
                               delay:0.0
                             options:UIViewAnimationOptionCurveEaseInOut
                          animations:^{
-                             self.alpha = 0.02;
-                             self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y-self.frame.size.height, self.frame.size.width, self.frame.size.height);
+                             self.alpha = 0;
+                             self.frame = CGRectMake(
+                                                     self.frame.origin.x+(rotated==1?-self.frame.size.width:(rotated==2?self.frame.size.width:0)),
+                                                     self.frame.origin.y+(rotated?0:(rotatedY?self.frame.size.height:-self.frame.size.height)), 
+                                                     self.frame.size.width, 
+                                                     self.frame.size.height);
                          }
                          completion:^(BOOL finished) {
                              if (finished)
@@ -378,7 +399,8 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
                              }
                          }];        
     }
-    else {
+    else 
+    {
         self.alpha = 0.0f;
         [self done];
     }
@@ -387,6 +409,7 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
 - (void)done
 {
     [self removeFromSuperview];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     currentDropdown = nil;
     if (yrQueue.count) // no need for nil check
     {
@@ -398,6 +421,8 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
         {
             [currentDropdown performSelector:@selector(hideUsingAnimation:) withObject:[NSNumber numberWithBool:currentDropdown.shouldAnimate] afterDelay:currentDropdown.hideAfter+ANIMATION_DURATION];
         }
+        [[NSNotificationCenter defaultCenter] addObserver:currentDropdown selector:@selector(flipViewAccordingToStatusBarOrientation:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+        [currentDropdown flipViewAccordingToStatusBarOrientation:nil];
     }
 }
 
@@ -410,6 +435,8 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
 
 - (void)layoutSubviews 
 {
+    CGRect bounds = self.bounds;
+    
     // Set label properties
     titleLabel.font = [UIFont boldSystemFontOfSize:TITLE_FONT_SIZE];
     titleLabel.adjustsFontSizeToFitWidth = NO;
@@ -419,11 +446,11 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
     titleLabel.shadowOffset = CGSizeMake(0, 1); // CALayer already translates pixel size
     titleLabel.shadowColor = [UIColor colorWithWhite:1 alpha:0.25];
     titleLabel.text = self.titleText;
-    [titleLabel sizeToFitFixedWidth:self.bounds.size.width - (2 * HORIZONTAL_PADDING)];
+    [titleLabel sizeToFitFixedWidth:bounds.size.width - (2 * HORIZONTAL_PADDING)];
 
-    titleLabel.frame = CGRectMake(self.bounds.origin.x + HORIZONTAL_PADDING, 
-                                  self.bounds.origin.y + VERTICAL_PADDING - 8, 
-                                  self.bounds.size.width - (2 * HORIZONTAL_PADDING), 
+    titleLabel.frame = CGRectMake(bounds.origin.x + HORIZONTAL_PADDING, 
+                                  bounds.origin.y + VERTICAL_PADDING - 8, 
+                                  bounds.size.width - (2 * HORIZONTAL_PADDING), 
                                   titleLabel.frame.size.height);
     
     [self addSubview:titleLabel];
@@ -438,11 +465,11 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
         detailLabel.shadowOffset = CGSizeMake(0, 1);
         detailLabel.shadowColor = [UIColor colorWithWhite:1 alpha:0.25];
         detailLabel.text = self.detailText;
-        [detailLabel sizeToFitFixedWidth:self.bounds.size.width - (2 * HORIZONTAL_PADDING)];
+        [detailLabel sizeToFitFixedWidth:bounds.size.width - (2 * HORIZONTAL_PADDING)];
         
-        detailLabel.frame = CGRectMake(self.bounds.origin.x + HORIZONTAL_PADDING, 
+        detailLabel.frame = CGRectMake(bounds.origin.x + HORIZONTAL_PADDING, 
                                        titleLabel.frame.origin.y + titleLabel.frame.size.height + 2, 
-                                       self.bounds.size.width - (2 * HORIZONTAL_PADDING), 
+                                       bounds.size.width - (2 * HORIZONTAL_PADDING), 
                                        detailLabel.frame.size.height);
 
         [self addSubview:detailLabel];
@@ -453,43 +480,43 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
                         titleLabel.frame.size.height);
         if (isRtl) 
         {
-            rc.origin.x = self.frame.size.width - rc.origin.x - rc.size.width;
+            rc.origin.x = bounds.size.width - rc.origin.x - rc.size.width;
         }
         titleLabel.frame = rc;
     }
     
     if (self.accessoryImage) {
         accessoryImageView.image = self.accessoryImage;
-        CGRect rc = CGRectMake(self.bounds.origin.x + HORIZONTAL_PADDING, 
-                        self.bounds.origin.y + VERTICAL_PADDING,
+        CGRect rc = CGRectMake(bounds.origin.x + HORIZONTAL_PADDING, 
+                        bounds.origin.y + VERTICAL_PADDING,
                         self.accessoryImage.size.width,
                         self.accessoryImage.size.height);
         if (isRtl) 
         {
-            rc.origin.x = self.bounds.origin.x + self.bounds.size.width - HORIZONTAL_PADDING - rc.size.width;
+            rc.origin.x = bounds.origin.x + bounds.size.width - HORIZONTAL_PADDING - rc.size.width;
         }
         accessoryImageView.frame = rc;
         
-        [titleLabel sizeToFitFixedWidth:self.bounds.size.width - IMAGE_PADDING - (HORIZONTAL_PADDING * 2)];
+        [titleLabel sizeToFitFixedWidth:bounds.size.width - IMAGE_PADDING - (HORIZONTAL_PADDING * 2)];
         rc = CGRectMake(titleLabel.frame.origin.x + IMAGE_PADDING, 
                         titleLabel.frame.origin.y, 
                         titleLabel.frame.size.width, 
                         titleLabel.frame.size.height);
         if (isRtl) 
         {
-            rc.origin.x =  self.frame.size.width - rc.origin.x - rc.size.width;
+            rc.origin.x =  bounds.size.width - rc.origin.x - rc.size.width;
         }
         titleLabel.frame = rc;
         
         if (self.detailText) {
-            [detailLabel sizeToFitFixedWidth:self.bounds.size.width - IMAGE_PADDING - (HORIZONTAL_PADDING * 2)];
+            [detailLabel sizeToFitFixedWidth:bounds.size.width - IMAGE_PADDING - (HORIZONTAL_PADDING * 2)];
             rc = CGRectMake(detailLabel.frame.origin.x + IMAGE_PADDING, 
                             detailLabel.frame.origin.y, 
                             detailLabel.frame.size.width, 
                             detailLabel.frame.size.height);
             if (isRtl) 
             {
-                rc.origin.x =  self.frame.size.width - rc.origin.x - rc.size.width;
+                rc.origin.x =  bounds.size.width - rc.origin.x - rc.size.width;
             }
             detailLabel.frame = rc;
         }
@@ -499,11 +526,71 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
     
     CGFloat dropdownHeight = 44.0f;
     if (self.detailText) {
-        dropdownHeight = MAX(CGRectGetMaxY(self.bounds), CGRectGetMaxY(detailLabel.frame));
+        dropdownHeight = MAX(CGRectGetMaxY(bounds), CGRectGetMaxY(detailLabel.frame));
         dropdownHeight += VERTICAL_PADDING;
     } 
-            
-    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, self.frame.size.width, dropdownHeight)];
+    self.dropdownHeight = dropdownHeight;
+    
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    BOOL rotated = UIInterfaceOrientationIsLandscape(orientation) && !self.isView;
+    
+    [self setFrame:CGRectMake(self.frame.origin.x, self.frame.origin.y, rotated?dropdownHeight:self.frame.size.width, rotated?self.frame.size.height:dropdownHeight)];
+    
+    titleLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | (self.detailText?UIViewAutoresizingFlexibleBottomMargin:0);
+    detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
+    accessoryImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
+    
+    [self flipViewAccordingToStatusBarOrientation:nil];
+}
+
+- (void)flipViewAccordingToStatusBarOrientation:(NSNotification *)notification 
+{
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    
+    if (!currentDropdown.isView) 
+    {
+        if (!self.dropdownHeight) return;
+        CGFloat angle = 0.0;
+        CGRect newFrame = self.window.bounds;
+        CGSize statusBarSize = [[UIApplication sharedApplication] statusBarFrame].size;
+        
+        switch (orientation) { 
+            case UIInterfaceOrientationPortraitUpsideDown:
+                angle = M_PI;
+                newFrame.origin.y = newFrame.size.height - statusBarSize.height - self.dropdownHeight;
+                newFrame.size.height = self.dropdownHeight;
+                break;
+            case UIInterfaceOrientationLandscapeLeft:
+                angle = - M_PI / 2.0f;
+                newFrame.origin.x += statusBarSize.width;
+                newFrame.size.width = self.dropdownHeight; 
+                break;
+            case UIInterfaceOrientationLandscapeRight:
+                angle = M_PI / 2.0f;
+                newFrame.origin.x = newFrame.size.width - statusBarSize.width - self.dropdownHeight;
+                newFrame.size.width = self.dropdownHeight;
+                break;
+            default: // as UIInterfaceOrientationPortrait
+                angle = 0.0;
+                newFrame.origin.y += statusBarSize.height;
+                newFrame.size.height = self.dropdownHeight;
+                newFrame.size.width = statusBarSize.width;
+                break;
+        } 
+        self.transform = CGAffineTransformMakeRotation(angle);
+        self.frame = newFrame;
+    }
+    else
+    {
+        CGRect newFrame = currentDropdown.frame;
+        if (UIInterfaceOrientationIsLandscape(orientation)) 
+        {
+            newFrame.size.width = currentDropdown.superview.frame.size.width;
+        } else {
+            newFrame.size.width = currentDropdown.superview.frame.size.width;
+        }
+        currentDropdown.frame = newFrame;
+    }
 }
 
 #pragma mark - rtl
