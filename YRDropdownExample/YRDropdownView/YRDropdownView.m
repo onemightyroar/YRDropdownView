@@ -545,10 +545,10 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
 
 - (void)flipViewAccordingToStatusBarOrientation:(NSNotification *)notification 
 {
-    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
     if (!currentDropdown.isView) 
     {
+        UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+        
         if (!self.dropdownHeight) return;
         CGFloat angle = 0.0;
         CGRect newFrame = self.window.bounds;
@@ -583,12 +583,7 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
     else
     {
         CGRect newFrame = currentDropdown.frame;
-        if (UIInterfaceOrientationIsLandscape(orientation)) 
-        {
-            newFrame.size.width = currentDropdown.superview.frame.size.width;
-        } else {
-            newFrame.size.width = currentDropdown.superview.frame.size.width;
-        }
+        newFrame.size.width = currentDropdown.superview.frame.size.width;
         currentDropdown.frame = newFrame;
     }
 }
