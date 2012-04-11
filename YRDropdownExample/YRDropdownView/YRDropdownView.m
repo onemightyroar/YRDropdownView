@@ -274,8 +274,8 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
         if (dropdown.hideAfter != 0.0) {
             [dropdown performSelector:@selector(hideUsingAnimation:) withObject:[NSNumber numberWithBool:dropdown.shouldAnimate] afterDelay:dropdown.hideAfter+ANIMATION_DURATION];
         }
-        [[NSNotificationCenter defaultCenter] addObserver:dropdown selector:@selector(flipViewAccordingToStatusBarOrientation:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
-        [dropdown flipViewAccordingToStatusBarOrientation:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:dropdown selector:@selector(flipViewToOrientation:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+        [dropdown flipViewToOrientation:nil];
     }
 
     return dropdown;
@@ -302,8 +302,8 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
         {
             [currentDropdown performSelector:@selector(hideUsingAnimation:) withObject:[NSNumber numberWithBool:currentDropdown.shouldAnimate] afterDelay:currentDropdown.hideAfter+ANIMATION_DURATION];
         }
-        [[NSNotificationCenter defaultCenter] addObserver:currentDropdown selector:@selector(flipViewAccordingToStatusBarOrientation:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
-        [currentDropdown flipViewAccordingToStatusBarOrientation:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:currentDropdown selector:@selector(flipViewToOrientation:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+        [currentDropdown flipViewToOrientation:nil];
     }
 }
 
@@ -421,8 +421,8 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
         {
             [currentDropdown performSelector:@selector(hideUsingAnimation:) withObject:[NSNumber numberWithBool:currentDropdown.shouldAnimate] afterDelay:currentDropdown.hideAfter+ANIMATION_DURATION];
         }
-        [[NSNotificationCenter defaultCenter] addObserver:currentDropdown selector:@selector(flipViewAccordingToStatusBarOrientation:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
-        [currentDropdown flipViewAccordingToStatusBarOrientation:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:currentDropdown selector:@selector(flipViewToOrientation:) name:UIApplicationDidChangeStatusBarOrientationNotification object:nil];
+        [currentDropdown flipViewToOrientation:nil];
     }
 }
 
@@ -540,10 +540,10 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
     detailLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleTopMargin;
     accessoryImageView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
     
-    [self flipViewAccordingToStatusBarOrientation:nil];
+    [self flipViewToOrientation:nil];
 }
 
-- (void)flipViewAccordingToStatusBarOrientation:(NSNotification *)notification 
+- (void)flipViewToOrientation:(NSNotification *)notification 
 {
     if (!currentDropdown.isView) 
     {
@@ -596,5 +596,3 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
 }
 
 @end
-
-
