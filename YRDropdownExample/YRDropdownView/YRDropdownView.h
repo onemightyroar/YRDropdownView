@@ -30,6 +30,7 @@
 @property (nonatomic, assign) BOOL shouldAnimate;
 @property (nonatomic, strong) NSMutableArray * backgroundColors;
 @property (nonatomic, strong) NSMutableArray * backgroundColorPositions;
+@property (nonatomic, assign, readonly) BOOL isView;
 
 #pragma mark - View methods
 
@@ -66,5 +67,6 @@
 #pragma mark -
 - (void)show:(BOOL)animated;
 - (void)hide:(BOOL)animated;
+- (void)flipViewToOrientation:(NSNotification *)notification;
 
 @end
