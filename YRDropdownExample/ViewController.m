@@ -55,8 +55,5 @@
 - (IBAction)hide:(id)sender {
     [YRDropdownView hideDropdownInView:demoView animated:YES];
 }
-- (void)dealloc {
-    [demoView release];
-    [super dealloc];
-}
+
 @end
