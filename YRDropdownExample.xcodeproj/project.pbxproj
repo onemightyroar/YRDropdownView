@@ -18,6 +18,7 @@
 		2D5FCB6014D30C2C00DA334B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2D5FCB5F14D30C2C00DA334B /* ViewController.m */; };
 		2D5FCB6314D30C2C00DA334B /* ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2D5FCB6114D30C2C00DA334B /* ViewController.xib */; };
 		2DC084DA14D878460013863F /* YRDropdownView.m in Sources */ = {isa = PBXBuildFile; fileRef = 2DC084D714D878460013863F /* YRDropdownView.m */; };
+		513900F515E6CF130063EDDC /* YRDropdownViewBlue.m in Sources */ = {isa = PBXBuildFile; fileRef = 513900F415E6CF130063EDDC /* YRDropdownViewBlue.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +40,8 @@
 		2D5FCB7214D321BC00DA334B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2DC084D614D878460013863F /* YRDropdownView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = YRDropdownView.h; path = YRDropdownView/YRDropdownView.h; sourceTree = "<group>"; };
 		2DC084D714D878460013863F /* YRDropdownView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = YRDropdownView.m; path = YRDropdownView/YRDropdownView.m; sourceTree = "<group>"; };
+		513900F315E6CF130063EDDC /* YRDropdownViewBlue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YRDropdownViewBlue.h; sourceTree = "<group>"; };
+		513900F415E6CF130063EDDC /* YRDropdownViewBlue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YRDropdownViewBlue.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +98,7 @@
 		2D5FCB5214D30C2C00DA334B /* YRDropdownExample */ = {
 			isa = PBXGroup;
 			children = (
+				513900F115E6CEF10063EDDC /* YRDropdownBlue */,
 				2D5FCB5B14D30C2C00DA334B /* AppDelegate.h */,
 				2D5FCB5C14D30C2C00DA334B /* AppDelegate.m */,
 				2DC084D314D878180013863F /* View Controller */,
@@ -125,6 +129,15 @@
 				2D5FCB6114D30C2C00DA334B /* ViewController.xib */,
 			);
 			name = "View Controller";
+			sourceTree = "<group>";
+		};
+		513900F115E6CEF10063EDDC /* YRDropdownBlue */ = {
+			isa = PBXGroup;
+			children = (
+				513900F315E6CF130063EDDC /* YRDropdownViewBlue.h */,
+				513900F415E6CF130063EDDC /* YRDropdownViewBlue.m */,
+			);
+			name = YRDropdownBlue;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -196,6 +209,7 @@
 				2D5FCB5D14D30C2C00DA334B /* AppDelegate.m in Sources */,
 				2D5FCB6014D30C2C00DA334B /* ViewController.m in Sources */,
 				2DC084DA14D878460013863F /* YRDropdownView.m in Sources */,
+				513900F515E6CF130063EDDC /* YRDropdownViewBlue.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

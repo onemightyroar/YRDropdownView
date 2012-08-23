@@ -8,6 +8,7 @@
 
 #import "ViewController.h"
 #import "YRDropdownView.h"
+#import "YRDropdownViewBlue.h"
 
 @interface ViewController ()
 
@@ -44,16 +45,34 @@
 }
 
 - (IBAction)showInWindow:(id)sender {
-    [YRDropdownView showDropdownInView:self.view.window 
-                               title:@"Warning" 
-                              detail:nil
-                               image:nil
-                            animated:NO
-                           hideAfter:0.0];
+    [YRDropdownView showDropdownInView:self.view.window
+                                 title:@"Warning"
+                                detail:@"Warning Detail Message."
+                                 image:[UIImage imageNamed:@"dropdown-alert"]
+                              animated:YES
+                             hideAfter:0.0];
 }
 
 - (IBAction)hide:(id)sender {
     [YRDropdownView hideDropdownInView:demoView animated:YES];
+}
+
+- (IBAction)showInWindowSimple:(id)sender {
+    [YRDropdownView showDropdownInView:self.view.window
+                                 title:@"Warning"
+                                detail:nil
+                                 image:nil
+                              animated:NO
+                             hideAfter:0.0];
+}
+
+- (IBAction)showInWindowBlue:(id)sender {
+    [YRDropdownViewBlue showDropdownInView:self.view.window
+                                     title:@"Warning"
+                                    detail:@"Warning Detail Message."
+                                     image:[UIImage imageNamed:@"dropdown-alert"]
+                                  animated:YES
+                                 hideAfter:0.0];
 }
 
 @end

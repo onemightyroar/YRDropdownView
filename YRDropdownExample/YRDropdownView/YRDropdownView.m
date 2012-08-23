@@ -49,6 +49,10 @@
 @synthesize isView, dropdownHeight = _dropdownHeight;
 @synthesize shouldAnimate, hideAfter, parentView;
 @synthesize backgroundColors, backgroundColorPositions;
+@synthesize titleTextColor;
+@synthesize titleShadowColor;
+@synthesize detailTextColor;
+@synthesize detailShadowColor;
 
 //Using this prevents two alerts to ever appear on the screen at the same time
 static YRDropdownView *currentDropdown = nil;
@@ -147,6 +151,12 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
         self.layer.shadowColor = [UIColor colorWithWhite:0.450 alpha:1.000].CGColor;
         self.layer.shadowOpacity = 1.0f;
         
+        // Set the default text styles
+        self.titleTextColor = [UIColor colorWithWhite:0.225 alpha:1.0];
+        self.titleShadowColor = [UIColor colorWithWhite:1 alpha:0.25];
+        self.detailTextColor = [UIColor colorWithWhite:0.225 alpha:1.0];
+        self.detailShadowColor = [UIColor colorWithWhite:1 alpha:0.25];
+        
         accessoryImageView = [[UIImageView alloc] initWithFrame:self.bounds];
         
         self.opaque = YES;
@@ -238,7 +248,7 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
                           animated:(BOOL)animated
                          hideAfter:(float)hideAfter
 {
-    YRDropdownView *dropdown = [[YRDropdownView alloc] initWithFrame:CGRectMake(0, 0, view.bounds.size.width, 44)];
+    YRDropdownView *dropdown = [[self alloc] initWithFrame:CGRectMake(0, 0, view.bounds.size.width, 44)];
     if (![view isKindOfClass:[UIWindow class]]) 
     {
         dropdown.isView = YES;
@@ -442,9 +452,9 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
     titleLabel.adjustsFontSizeToFitWidth = NO;
     titleLabel.opaque = NO;
     titleLabel.backgroundColor = [UIColor clearColor];
-    titleLabel.textColor = [UIColor colorWithWhite:0.225 alpha:1.0];
+    titleLabel.textColor = self.titleTextColor;
     titleLabel.shadowOffset = CGSizeMake(0, 1); // CALayer already translates pixel size
-    titleLabel.shadowColor = [UIColor colorWithWhite:1 alpha:0.25];
+    titleLabel.shadowColor = self.titleShadowColor;
     titleLabel.text = self.titleText;
     [titleLabel sizeToFitFixedWidth:bounds.size.width - (2 * HORIZONTAL_PADDING)];
 
@@ -461,9 +471,9 @@ static BOOL isRtl = NO; // keep rtl property here - danielgindi@gmail.com
         detailLabel.adjustsFontSizeToFitWidth = NO;
         detailLabel.opaque = NO;
         detailLabel.backgroundColor = [UIColor clearColor];
-        detailLabel.textColor = [UIColor colorWithWhite:0.225 alpha:1.0];
+        detailLabel.textColor = self.detailTextColor;
         detailLabel.shadowOffset = CGSizeMake(0, 1);
-        detailLabel.shadowColor = [UIColor colorWithWhite:1 alpha:0.25];
+        detailLabel.shadowColor = self.detailShadowColor;
         detailLabel.text = self.detailText;
         [detailLabel sizeToFitFixedWidth:bounds.size.width - (2 * HORIZONTAL_PADDING)];
         

@@ -30,6 +30,10 @@
 @property (nonatomic, assign) BOOL shouldAnimate;
 @property (nonatomic, strong) NSMutableArray * backgroundColors;
 @property (nonatomic, strong) NSMutableArray * backgroundColorPositions;
+@property (nonatomic, strong) UIColor * titleTextColor;
+@property (nonatomic, strong) UIColor * titleShadowColor;
+@property (nonatomic, strong) UIColor * detailTextColor;
+@property (nonatomic, strong) UIColor * detailShadowColor;
 @property (nonatomic, assign, readonly) BOOL isView;
 
 #pragma mark - View methods
