@@ -13,5 +13,7 @@
 - (IBAction)showInView:(id)sender;
 - (IBAction)showInWindow:(id)sender;
 - (IBAction)hide:(id)sender;
+- (IBAction)showInWindowSimple:(id)sender;
+- (IBAction)showInWindowBlue:(id)sender;
 
 @end

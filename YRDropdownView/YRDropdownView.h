@@ -9,41 +9,32 @@
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-typedef void (^YRTapBlock)(void);
-
 @interface YRDropdownView : UIView
 {
     NSString *titleText;
     NSString *detailText;
     UILabel *titleLabel;
     UILabel *detailLabel;
-    //UIImage *backgroundImage;
-    UIImageView *backgroundImageView;
-    //UIImage *accessoryImage;
+    UIImage *accessoryImage;
     UIImageView *accessoryImageView;
-    UIColor *titleLabelColor;
-    UIColor *detailLabelColor;
     SEL onTouch;
     NSDate *showStarted;
     BOOL shouldAnimate;
-    
-    YRTapBlock          _tapBlock;
-    dispatch_queue_t    _tapQueue;
 }
 
-@property (copy) NSString *titleText;
-@property (copy) NSString *detailText;
-
+@property (nonatomic, copy) NSString *titleText;
+@property (nonatomic, copy) NSString *detailText;
 @property (nonatomic, strong) UIImage *accessoryImage;
-@property (nonatomic, strong) UIImage *backgroundImage;
-
-@property (assign) float minHeight;
-@property (retain) UIColor *titleLabelColor;
-@property (retain) UIColor *detailLabelColor;
+@property (nonatomic, assign) float minHeight;
 @property (nonatomic, assign) SEL onTouch;
-@property (assign) BOOL shouldAnimate;
-
-@property (nonatomic, copy) YRTapBlock  tapBlock;
+@property (nonatomic, assign) BOOL shouldAnimate;
+@property (nonatomic, strong) NSMutableArray * backgroundColors;
+@property (nonatomic, strong) NSMutableArray * backgroundColorPositions;
+@property (nonatomic, strong) UIColor * titleTextColor;
+@property (nonatomic, strong) UIColor * textColor;
+@property (nonatomic, strong) UIColor * titleTextShadowColor;
+@property (nonatomic, strong) UIColor * textShadowColor;
+@property (nonatomic, assign, readonly) BOOL isView;
 
 #pragma mark - View methods
 
@@ -72,33 +63,14 @@ typedef void (^YRTapBlock)(void);
                               animated:(BOOL)animated
                              hideAfter:(float)delay;
 
-+ (YRDropdownView *)showDropdownInView:(UIView *)view
-                                 title:(NSString *)title
-                                detail:(NSString *)detail
-                                 image:(UIImage *)image
-                       backgroundImage:(UIImage *)backgroundImage
-                              animated:(BOOL)animated
-                             hideAfter:(float)delay;
-
-+ (YRDropdownView *)showDropdownInView:(UIView *)view
-                                 title:(NSString *)title
-                                detail:(NSString *)detail
-                                 image:(UIImage *)image
-                       backgroundImage:(UIImage *)backgroundImage
-                       titleLabelColor:(UIColor *)titleLabelColor
-                      detailLabelColor:(UIColor *)detailLabelColor
-                              animated:(BOOL)animated
-                             hideAfter:(float)delay;
-
 + (BOOL)hideDropdownInView:(UIView *)view;
 + (BOOL)hideDropdownInView:(UIView *)view animated:(BOOL)animated;
+
++ (void)setRtl:(BOOL)rtl;
 
 #pragma mark -
 - (void)show:(BOOL)animated;
 - (void)hide:(BOOL)animated;
-
--(void)setTapBlock:(YRTapBlock)tapBlock
-         withQueue:(dispatch_queue_t)dispatchQueue;
-
+- (void)flipViewToOrientation:(NSNotification *)notification;
 
 @end
