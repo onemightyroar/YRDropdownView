@@ -522,6 +522,16 @@ static YRDropdownView *currentDropdown = nil;
     }
 }
 
+#if !(__has_feature(objc_arc))
+- (void)dealloc {
+	self.accessoryImage = nil;
+	self.backgroundImage = nil;
+	self.titleLabelColor = nil;
+	self.detailLabelColor = nil;
+    [super dealloc];
+}
+#endif
+
 @end
 
 
