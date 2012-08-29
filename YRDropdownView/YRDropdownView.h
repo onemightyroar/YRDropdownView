@@ -34,8 +34,13 @@ typedef void (^YRTapBlock)(void);
 @property (copy) NSString *titleText;
 @property (copy) NSString *detailText;
 
+#if !(__has_feature(objc_arc))
+@property (nonatomic, retain) UIImage *accessoryImage;
+@property (nonatomic, retain) UIImage *backgroundImage;
+#else
 @property (nonatomic, strong) UIImage *accessoryImage;
 @property (nonatomic, strong) UIImage *backgroundImage;
+#endif
 
 @property (assign) float minHeight;
 @property (retain) UIColor *titleLabelColor;
