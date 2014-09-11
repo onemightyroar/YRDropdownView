@@ -19,7 +19,7 @@
 - (void)sizeToFitFixedWidth:(CGFloat)fixedWidth
 {
     self.frame = CGRectMake(self.frame.origin.x, self.frame.origin.y, fixedWidth, 0);
-    self.lineBreakMode = UILineBreakModeWordWrap;
+    self.lineBreakMode = NSLineBreakByWordWrapping;
     self.numberOfLines = 0;
     [self sizeToFit];
 }
